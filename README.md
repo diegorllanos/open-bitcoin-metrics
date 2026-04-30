@@ -151,6 +151,7 @@ open-bitcoin-metrics/
         LICENSE
         compute_obm_tx_count_daily.py
         compute_obm_block_count_daily.py
+        compute_obm_issuance_btc_daily.py
         plot_obm_csv.py
 ```
 
