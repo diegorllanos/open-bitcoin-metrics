@@ -23,7 +23,12 @@ The series reports the real daily Bitcoin issuance, measured in BTC, computed di
 
 ## Definition
 
-Let B_d denote the set of Bitcoin blocks assigned to UTC calendar day d. For each block b, let C_b denote the total value of the outputs of the coinbase transaction, and let F_b denote the total transaction fees paid by non-coinbase transactions in that block. The real issuance of block b is defined as:
+The coinbase transaction is the only transaction that can create new BTC, but its outputs include both newly 
+minted subsidy and collected transaction fees. Since fees are transfers of existing BTC, they should be subtracted to 
+isolate newly minted BTC.
+
+Let B_d denote the set of Bitcoin blocks assigned to UTC calendar day d. 
+For each block b, let C_b denote the total value of the outputs of the coinbase transaction, and let F_b denote the total transaction fees paid by non-coinbase transactions in that block. The real issuance of block b is defined as:
 
 ```text
 Issuance_b = C_b - F_b
