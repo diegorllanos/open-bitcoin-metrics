@@ -155,7 +155,8 @@ A formal citation will be added once the dataset receives a DOI.
 For now, please cite this repository as:
 
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Daily Bitcoin Transaction Count.
+Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
+Metric: Daily Bitcoin Transaction Count (obm_tx_count_daily).
 GitHub repository, version OBM v0.1.0.
 https://github.com/diegorllanos/open-bitcoin-metrics/
 ```

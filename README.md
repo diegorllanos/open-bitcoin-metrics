@@ -233,7 +233,9 @@ A formal citation will be added once the project receives a DOI.
 For now, please cite the repository as:
 
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series for Economic Research. GitHub repository.
+Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series 
+GitHub repository, version OBM v0.1.0.
+https://github.com/diegorllanos/open-bitcoin-metrics/
 ```
 
 For a specific dataset release, include the release version, for example:
@@ -253,10 +255,6 @@ Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time 
 The intended contribution of the paper is to document the dataset, metric definitions, reconstruction algorithms, validation procedures, and usage notes.
 
 ## License
-
-Add the selected license here.
-
-Recommended structure:
 
 - code: MIT License;
 - data and documentation: Creative Commons Attribution 4.0 International, CC BY 4.0.
