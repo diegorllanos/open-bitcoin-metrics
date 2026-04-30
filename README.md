@@ -1,0 +1,276 @@
+# Open Bitcoin Metrics (OBM)
+
+**Open Bitcoin Metrics (OBM)** is an open-data project that provides reproducible Bitcoin on-chain time series for economic, financial, and econometric research.
+
+The project aims to make specialized Bitcoin metrics easier to access, audit, cite, and reproduce. Each metric is accompanied by:
+
+- a CSV time series;
+- a Python script that generates the series;
+- a clear definition of the metric;
+- documentation of the algorithm used to compute it;
+- metadata fields intended to support reproducibility and academic use.
+
+The long-term goal is to provide a transparent, full-node-derived dataset of Bitcoin metrics suitable for research papers, replication packages, teaching, and exploratory analysis.
+
+## Motivation
+
+Bitcoin research increasingly relies on on-chain indicators to study network activity, monetary issuance, transaction demand, miner incentives, liquidity conditions, and long-run monetary behavior.
+
+However, many Bitcoin metrics are currently dispersed across commercial dashboards, public websites, and proprietary APIs. Definitions are not always explicit, historical series may be incomplete, and access is sometimes limited by paywalls or usage restrictions.
+
+OBM addresses this problem by providing a reproducible and openly documented alternative. Whenever possible, metrics are reconstructed directly from a Bitcoin Core full node rather than copied from third-party providers.
+
+## Current status
+
+The project is in an early stage. Metrics are being added one at a time, with priority given to robustness, reproducibility, and clear documentation.
+
+The first available metric is:
+
+```text
+obm_tx_count_daily
+```
+
+This series reports the daily number of Bitcoin transactions confirmed on-chain.
+
+## Available metrics
+
+| Series identifier | Display name | Frequency | Unit | Status |
+|---|---|---|---|---|
+| `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | Available |
+
+Future metrics planned for inclusion include:
+
+| Series identifier | Display name | Main use |
+|---|---|---|
+| `obm_supply_btc_daily` | Circulating Bitcoin supply | Monetary supply, scarcity, normalization |
+| `obm_issuance_btc_daily` | Daily issuance | Realized monetary issuance |
+| `obm_cdd_btc_days_daily` | Bitcoin Days Destroyed | Coin-age dynamics, long-term holder activity |
+| `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
+| `obm_dormancy_days_daily` | Dormancy | Average age of coins moved |
+| `obm_fees_btc_daily` | Total transaction fees in BTC | Fee market and block-space demand |
+| `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Miner incentives and security budget |
+| `obm_fees_share_miner_revenue_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
+| `obm_block_count_daily` | Block count | Block production and normalization |
+| `obm_block_weight_avg_daily` | Average block weight | Block-space utilization |
+| `obm_fee_median_satvbyte_daily` | Median fee rate | Typical transaction cost |
+| `obm_spent_value_btc_daily` | Total spent output value | Gross on-chain settlement value |
+| `obm_binary_cdd_daily` | Binary Bitcoin Days Destroyed | Movement of older coins under threshold rules |
+| `obm_active_addresses_daily` | Active addresses | Approximate network participation |
+| `obm_tx_volume_usd_daily` | Transaction volume in USD | Fiat-denominated settlement activity |
+
+The planned list may evolve as definitions are refined and validation procedures are developed.
+
+## Data philosophy
+
+OBM follows five principles.
+
+### 1. Primary-source derivation
+
+Metrics are reconstructed from Bitcoin blockchain data obtained through a Bitcoin Core full node whenever possible.
+
+### 2. Transparent definitions
+
+Each variable is associated with an explicit definition, a stable series identifier, a measurement unit, and a documented computational procedure.
+
+### 3. Econometric usability
+
+Series are distributed in regular time intervals, initially daily, using clear timestamp conventions and aggregation rules.
+
+### 4. Reproducibility
+
+Each metric is accompanied by the Python script used to generate it. The objective is that a researcher with a synchronized Bitcoin node can reproduce the published values.
+
+### 5. Versioning
+
+Dataset releases use explicit release labels, for example:
+
+```text
+OBM v0.1.0
+```
+
+This allows researchers to cite and reproduce the exact version used in their work.
+
+## Standard CSV schema
+
+Each OBM time series uses the following canonical schema:
+
+```text
+date,series_id,value,unit,frequency,release_version
+```
+
+Example:
+
+```csv
+date,series_id,value,unit,frequency,release_version
+2024-01-01,obm_tx_count_daily,731566,transactions,daily,OBM v0.1.0
+2024-01-02,obm_tx_count_daily,649123,transactions,daily,OBM v0.1.0
+```
+
+### Column descriptions
+
+| Column | Description |
+|---|---|
+| `date` | UTC calendar date in `YYYY-MM-DD` format |
+| `series_id` | Stable OBM series identifier |
+| `value` | Observed value |
+| `unit` | Measurement unit |
+| `frequency` | Observation frequency |
+| `release_version` | OBM dataset release version |
+
+The schema is intentionally slightly redundant. The goal is to make each file self-describing, even when copied, merged, archived, or used outside the repository.
+
+## Naming convention
+
+OBM series identifiers follow lowercase snake case:
+
+```text
+obm_<metric>_<unit_or_variant>_<frequency>
+```
+
+Examples:
+
+```text
+obm_tx_count_daily
+obm_supply_btc_daily
+obm_cdd_btc_days_daily
+obm_fees_btc_daily
+```
+
+The `obm_` prefix identifies the Open Bitcoin Metrics dataset and reduces ambiguity when OBM series are merged with external macro-financial variables.
+
+## Repository structure
+
+A typical repository structure is:
+
+```text
+open-bitcoin-metrics/
+    README.md
+    LICENSE
+    CITATION.cff
+    data/
+        daily/
+            obm_tx_count_daily.csv
+    scripts/
+        compute_obm_tx_count_daily.py
+        plot_obm_csv.py
+    docs/
+        obm_tx_count_daily.md
+    figures/
+        obm_tx_count_daily.png
+```
+
+The structure may expand as additional metrics are added.
+
+## Reproducibility requirements
+
+Most OBM scripts assume:
+
+- a synchronized Bitcoin Core full node;
+- access to the Bitcoin Core JSON-RPC interface;
+- Python 3;
+- a Linux environment for scheduled execution;
+- optional plotting libraries, such as `matplotlib`, when plots are requested.
+
+Some future metrics, especially UTXO-age metrics such as Bitcoin Days Destroyed, may require additional indexing or reconstruction of previous transaction outputs.
+
+## Example usage
+
+Generate the daily transaction-count series:
+
+```bash
+python3 scripts/compute_obm_tx_count_daily.py \
+  --start_date 2024-01-01 \
+  --end_date 2024-01-31 \
+  --output data/daily/obm_tx_count_daily.csv \
+  --release_version "OBM v0.1.0"
+```
+
+Generate the same series and a plot:
+
+```bash
+python3 scripts/compute_obm_tx_count_daily.py \
+  --start_date 2024-01-01 \
+  --end_date 2024-01-31 \
+  --output data/daily/obm_tx_count_daily.csv \
+  --release_version "OBM v0.1.0" \
+  --plot \
+  --plot_output figures/obm_tx_count_daily.png
+```
+
+Plot any OBM-compatible CSV file:
+
+```bash
+python3 scripts/plot_obm_csv.py data/daily/obm_tx_count_daily.csv \
+  --output figures/obm_tx_count_daily.png
+```
+
+## Validation
+
+Validation is metric-specific, but OBM generally relies on three types of checks:
+
+1. **Internal consistency checks**, such as missing dates, duplicate dates, negative values, or inconsistent totals.
+2. **Reproducibility checks**, ensuring that scripts can regenerate the published series from the documented inputs.
+3. **External comparisons**, when comparable public series are available.
+
+External comparisons are diagnostic rather than definitive. Data providers may differ in timestamp conventions, treatment of chain reorganizations, inclusion rules, or metric definitions.
+
+## Known limitations
+
+OBM metrics should be interpreted carefully.
+
+- On-chain transactions do not map one-to-one to users.
+- On-chain transactions do not map one-to-one to economically distinct payments.
+- Address-based metrics require heuristics and should not be interpreted as user counts.
+- Gross transaction-value metrics can include self-transfers, change outputs, and exchange activity.
+- USD-denominated metrics require external price data and are therefore not purely full-node-derived.
+- Daily aggregation depends on timestamp conventions.
+- Daily rolling releases may be revised if bugs, edge cases, or definitional improvements are identified.
+
+## Suggested citation
+
+A formal citation will be added once the project receives a DOI.
+
+For now, please cite the repository as:
+
+```text
+Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series for Economic Research. GitHub repository.
+```
+
+For a specific dataset release, include the release version, for example:
+
+```text
+Open Bitcoin Metrics, OBM v0.1.0.
+```
+
+## Academic paper
+
+The project is being developed alongside a data descriptor manuscript tentatively titled:
+
+```text
+Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for Economic Research
+```
+
+The intended contribution of the paper is to document the dataset, metric definitions, reconstruction algorithms, validation procedures, and usage notes.
+
+## License
+
+Add the selected license here.
+
+Recommended structure:
+
+- code: MIT License;
+- data and documentation: Creative Commons Attribution 4.0 International, CC BY 4.0.
+
+## Contact
+
+Maintainer:
+
+```text
+Diego R. Llanos
+Department of Computer Science
+University of Valladolid, Spain
+```
+
+## Project status
+
+OBM is under active development. The first objective is to build a small set of robust, well-documented, reproducible Bitcoin time series before expanding toward more complex metrics.

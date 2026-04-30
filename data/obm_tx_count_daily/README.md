@@ -77,6 +77,7 @@ date,series_id,value,unit,frequency,release_version
 ## Reproducibility
 
 The metric is generated using a Python script that queries a local Bitcoin Core node through JSON-RPC.
+You can find the script in the "scripts" directory of this repository.
 
 For each block in the requested date interval, the script:
 
@@ -98,7 +99,6 @@ python3 compute_obm_tx_count_daily.py \
   --start_date 2024-01-01 \
   --end_date 2024-01-31 \
   --output data/daily/obm_tx_count_daily.csv \
-  --release_version "OBM v0.1.0"
 ```
 
 Generate the CSV file and a plot:
@@ -108,7 +108,6 @@ python3 compute_obm_tx_count_daily.py \
   --start_date 2024-01-01 \
   --end_date 2024-01-31 \
   --output data/daily/obm_tx_count_daily.csv \
-  --release_version "OBM v0.1.0" \
   --plot \
   --plot_output figures/obm_tx_count_daily.png
 ```
@@ -158,13 +157,10 @@ For now, please cite this repository as:
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Daily Bitcoin Transaction Count.
 GitHub repository, version OBM v0.1.0.
+https://github.com/diegorllanos/open-bitcoin-metrics/
 ```
 
 ## License
-
-Add your selected license here.
-
-Recommended options:
 
 - MIT License for code;
 - CC BY 4.0 for data and documentation.
