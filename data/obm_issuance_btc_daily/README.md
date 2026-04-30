@@ -158,14 +158,14 @@ External comparisons should be interpreted cautiously because providers may use 
 
 ## Known limitations
 
-This metric has several limitations:
+It is important to remember that this metric:
 
-- it measures realized issuance, not the theoretical maximum subsidy schedule;
-- it depends on accurate reconstruction of transaction fees;
-- historical fee reconstruction may require a non-pruned node with the necessary block and undo data;
-- it does not include transaction fees as newly issued supply, because fees are transfers of already existing bitcoins;
-- it depends on the block timestamp convention used to assign blocks to calendar days;
-- daily values vary with the number of blocks assigned to each UTC day, so deviations from the expected daily issuance can reflect normal variation in block production.
+- measures realized issuance, not the theoretical maximum subsidy schedule;
+- may require a non-pruned node with the necessary block and undo data for historical fee reconstruction;
+- does not include transaction fees as newly issued supply, because fees are transfers of already existing bitcoins;
+- depends on the block timestamp convention used to assign blocks to calendar days;
+- has daily values which vary with the number of blocks assigned to each UTC day, so deviations from the 
+expected daily issuance can reflect normal variation in block production.
 
 Despite these limitations, `obm_issuance_btc_daily` is a central OBM series. It provides a transparent measure of realized monetary issuance and is a building block for cumulative Bitcoin supply, miner-revenue metrics, subsidy-era analysis, and monetary-supply studies.
 
