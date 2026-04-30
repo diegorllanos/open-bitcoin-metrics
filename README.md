@@ -26,6 +26,7 @@ The project is in an early stage. Metrics are being added one at a time, with pr
 
 The available metrics so far are the following:
 
+- `obm_issuance_btc_daily` reports the real, daily Bitcoin issuance confirmed on-chain.
 - `obm_block_count_daily` reports the daily number of Bitcoin blocks confirmed on-chain. 
 - `obm_tx_count_daily` reports the daily number of Bitcoin transactions confirmed on-chain.
 
@@ -33,6 +34,7 @@ The available metrics so far are the following:
 
 | Series identifier | Display name | Frequency | Unit | Status |
 |---|---|---|---|---|
+| `obm_issuance_btc_daily` | Daily Bitcoin issuance | Daily | BTCs | Available |
 | `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | Available |
 | `obm_block_count_daily` | Daily Bitcoin block count | Daily | Transactions | Available |
 
@@ -41,7 +43,6 @@ Future metrics planned for inclusion include:
 | Series identifier | Display name | Main use |
 |---|---|---|
 | `obm_supply_btc_daily` | Circulating Bitcoin supply | Monetary supply, scarcity, normalization |
-| `obm_issuance_btc_daily` | Daily issuance | Realized monetary issuance |
 | `obm_cdd_btc_days_daily` | Bitcoin Days Destroyed | Coin-age dynamics, long-term holder activity |
 | `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
 | `obm_dormancy_days_daily` | Dormancy | Average age of coins moved |
