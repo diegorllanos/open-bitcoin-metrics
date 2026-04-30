@@ -146,15 +146,13 @@ External comparisons should be interpreted cautiously because providers may use 
 
 ## Known limitations
 
-This metric has several limitations:
+Take into account that this metric:
 
-- it counts blocks, not transactions;
-- it does not measure transaction demand or economic activity directly;
-- it does not measure block size, block weight, fees, or transaction volume;
-- it depends on the block timestamp convention used to assign blocks to calendar days;
-- short-run deviations from 144 blocks per day are normal and should not be interpreted mechanically as changes in network health.
+- depends on the block timestamp convention used to assign blocks to calendar days;
+- may present short-run deviations from 144 blocks per day. They are normal and should 
+not be interpreted mechanically as changes in network health.
 
-Despite these limitations, `obm_block_count_daily` is a useful baseline indicator of Bitcoin block production. It is also valuable as a normalization variable for other OBM metrics, especially transaction count, fees, issuance, miner revenue, block weight, and other block-level aggregates.
+Despite these facts, `obm_block_count_daily` is a useful baseline indicator of Bitcoin block production. It is also valuable as a normalization variable for other OBM metrics, especially transaction count, fees, issuance, miner revenue, block weight, and other block-level aggregates.
 
 ## Suggested citation
 

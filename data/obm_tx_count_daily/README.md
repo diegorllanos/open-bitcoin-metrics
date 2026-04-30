@@ -137,16 +137,14 @@ External comparisons should be interpreted cautiously because providers may use 
 
 ## Known limitations
 
-This metric has several limitations:
+Take into account that this metric:
 
-- it counts transactions, not users;
-- it does not identify economically distinct payments;
-- it does not adjust for batching;
-- it does not remove self-transfers or exchange internal activity;
-- it does not measure transaction value;
-- it depends on the block timestamp convention used to assign blocks to calendar days.
+- does not adjust for batching;
+- does not remove self-transfers or exchange internal activity;
+- does not measure transaction value;
+- depends on the block timestamp convention used to assign blocks to calendar days.
 
-Despite these limitations, `obm_tx_count_daily` is a useful baseline indicator of Bitcoin on-chain activity and a natural starting point for the Open Bitcoin Metrics dataset.
+Despite these facts, `obm_tx_count_daily` is a useful baseline indicator of Bitcoin on-chain activity and a natural starting point for the Open Bitcoin Metrics dataset.
 
 ## Suggested citation
 

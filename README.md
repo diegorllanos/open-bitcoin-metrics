@@ -24,19 +24,17 @@ OBM addresses this problem by providing a reproducible and openly documented alt
 
 The project is in an early stage. Metrics are being added one at a time, with priority given to robustness, reproducibility, and clear documentation.
 
-The first available metric is:
+The available metrics so far are the following:
 
-```text
-obm_tx_count_daily
-```
-
-This series reports the daily number of Bitcoin transactions confirmed on-chain.
+- 'obm_block_count_daily' reports the daily number of Bitcoin blocks confirmed on-chain. 
+- 'obm_tx_count_daily' reports the daily number of Bitcoin transactions confirmed on-chain.
 
 ## Available metrics
 
 | Series identifier | Display name | Frequency | Unit | Status |
 |---|---|---|---|---|
 | `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | Available |
+| `obm_block_count_daily` | Daily Bitcoin block count | Daily | Transactions | Available |
 
 Future metrics planned for inclusion include:
 
@@ -50,7 +48,6 @@ Future metrics planned for inclusion include:
 | `obm_fees_btc_daily` | Total transaction fees in BTC | Fee market and block-space demand |
 | `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Miner incentives and security budget |
 | `obm_fees_share_miner_revenue_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
-| `obm_block_count_daily` | Block count | Block production and normalization |
 | `obm_block_weight_avg_daily` | Average block weight | Block-space utilization |
 | `obm_fee_median_satvbyte_daily` | Median fee rate | Typical transaction cost |
 | `obm_spent_value_btc_daily` | Total spent output value | Gross on-chain settlement value |
@@ -267,4 +264,4 @@ University of Valladolid, Spain
 
 ## Project status
 
-OBM is under active development. The first objective is to build a small set of robust, well-documented, reproducible Bitcoin time series before expanding toward more complex metrics.
+OBM is under active development. The goal is to build a reliable set of robust, well-documented, reproducible Bitcoin time series, and later expanding toward more complex metrics.
