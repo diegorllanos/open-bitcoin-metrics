@@ -272,6 +272,8 @@ reconstruction algorithms, validation procedures, and usage notes.
 - code: MIT License.
 - data and documentation: Creative Commons Attribution 4.0 International, CC BY 4.0.
 
+See the corresponding `LICENSE` files in the `data/` and `scripts` directories.
+
 ## Contact
 
 Maintainer:
