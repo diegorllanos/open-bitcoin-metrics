@@ -26,8 +26,8 @@ The project is in an early stage. Metrics are being added one at a time, with pr
 
 The available metrics so far are the following:
 
-- 'obm_block_count_daily' reports the daily number of Bitcoin blocks confirmed on-chain. 
-- 'obm_tx_count_daily' reports the daily number of Bitcoin transactions confirmed on-chain.
+- `obm_block_count_daily` reports the daily number of Bitcoin blocks confirmed on-chain. 
+- `obm_tx_count_daily` reports the daily number of Bitcoin transactions confirmed on-chain.
 
 ## Available metrics
 
@@ -129,7 +129,6 @@ Examples:
 ```text
 obm_tx_count_daily
 obm_supply_btc_daily
-obm_cdd_btc_days_daily
 obm_fees_btc_daily
 ```
 
@@ -145,12 +144,12 @@ open-bitcoin-metrics/
     CITATION.cff
     data/
         DATA_LICENSE
-        obm_tx_count_daily
-            obm_tx_count_daily.csv
-            obm_tx_count_daily.png
+        obm_tx_count_daily/
+        obm_block_count_daily/
     scripts/
         LICENSE
         compute_obm_tx_count_daily.py
+        compute_obm_block_count_daily.py
         plot_obm_csv.py
 ```
 
@@ -170,7 +169,28 @@ Some future metrics, especially UTXO-age metrics such as Bitcoin Days Destroyed,
 
 ## Example usage
 
-Generate the daily transaction-count series:
+General format of command-line parameters:
+
+
+```bash
+compute_obm_block_count_daily.py [-h] 
+   --start_date START_DATE 
+   --end_date END_DATE 
+   [--output OUTPUT]
+   [--release_version RELEASE_VERSION] 
+   [--rpc_host RPC_HOST]
+   [--rpc_port RPC_PORT] 
+   [--rpc_user RPC_USER]
+   [--rpc_password RPC_PASSWORD] 
+   [--datadir DATADIR]
+   [--cookie_path COOKIE_PATH] 
+   [--height_margin HEIGHT_MARGIN]
+   [--progress_every PROGRESS_EVERY] 
+   [--plot]
+   [--plot_output PLOT_OUTPUT]
+```
+
+For example, the following invocation generates the daily transaction-count series:
 
 ```bash
 python3 scripts/compute_obm_tx_count_daily.py \
@@ -180,7 +200,7 @@ python3 scripts/compute_obm_tx_count_daily.py \
   --release_version "OBM v0.1.0"
 ```
 
-Generate the same series and a plot:
+This another one generate the same series and the corresponding plot:
 
 ```bash
 python3 scripts/compute_obm_tx_count_daily.py \
@@ -192,7 +212,7 @@ python3 scripts/compute_obm_tx_count_daily.py \
   --plot_output figures/obm_tx_count_daily.png
 ```
 
-Plot any OBM-compatible CSV file:
+Finally, to plot any OBM-compatible CSV file:
 
 ```bash
 python3 scripts/plot_obm_csv.py data/daily/obm_tx_count_daily.csv \
