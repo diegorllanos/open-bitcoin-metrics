@@ -195,7 +195,8 @@ compute_obm_block_count_daily.py [-h]
    [--plot_output PLOT_OUTPUT]
 ```
 
-For example, the following invocation generates the daily transaction-count series:
+For example, the following invocation generates the daily transaction-count series and 
+the corresponding plot::
 
 ```bash
 python3 scripts/compute_obm_tx_count_daily.py \
@@ -203,25 +204,15 @@ python3 scripts/compute_obm_tx_count_daily.py \
   --end_date 2024-01-31 \
   --output data/daily/obm_tx_count_daily.csv \
   --release_version "OBM v0.1.0"
-```
-
-This another one generate the same series and the corresponding plot:
-
-```bash
-python3 scripts/compute_obm_tx_count_daily.py \
-  --start_date 2024-01-01 \
-  --end_date 2024-01-31 \
-  --output data/daily/obm_tx_count_daily.csv \
-  --release_version "OBM v0.1.0" \
   --plot \
-  --plot_output figures/obm_tx_count_daily.png
+  --plot_output data/obm_tx_count_daily/obm_tx_count_daily.png
 ```
 
 Finally, to plot any OBM-compatible CSV file:
 
 ```bash
 python3 scripts/plot_obm_csv.py data/daily/obm_tx_count_daily.csv \
-  --output figures/obm_tx_count_daily.png
+  --output data/obm_tx_count_daily/obm_tx_count_daily.png
 ```
 
 ## Validation
