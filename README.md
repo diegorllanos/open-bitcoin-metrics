@@ -38,6 +38,8 @@ The available metrics so far are the following:
 | `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | Available |
 | `obm_block_count_daily` | Daily Bitcoin block count | Daily | Transactions | Available |
 
+## Future  metrics
+
 Future metrics planned for inclusion include:
 
 | Series identifier | Display name | Main use |
