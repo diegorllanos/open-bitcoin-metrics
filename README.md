@@ -247,8 +247,8 @@ Open Bitcoin Metrics, OBM v0.1.0.
 The project is being developed alongside a data descriptor manuscript tentatively titled
 "Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for Economic Research".
 
-The intended contribution of the paper is to document the dataset, metric definitions, reconstruction 
-algorithms, validation procedures, and usage notes.
+The intended contribution of the paper is to document the dataset, metric definitions, 
+reconstruction algorithms, validation procedures, and usage notes.
 
 ## License
 
