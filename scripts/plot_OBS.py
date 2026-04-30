@@ -200,7 +200,7 @@ def main() -> int:
     try:
         series = read_obm_csv(input_path)
         plot_obm_series(series, output_path)
-        print(f"Wrote plot to {output_path}", file=sys.stderr)
+        # print(f"Wrote plot to {output_path}", file=sys.stderr)
         return 0
 
     except Exception as exc:
