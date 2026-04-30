@@ -140,30 +140,28 @@ The `obm_` prefix identifies the Open Bitcoin Metrics dataset and reduces ambigu
 
 ## Repository structure
 
-A typical repository structure is:
+The repository structure is the following:
 
 ```text
 open-bitcoin-metrics/
     README.md
-    LICENSE
     CITATION.cff
     data/
-        daily/
+        DATA_LICENSE
+        obm_tx_count_daily
             obm_tx_count_daily.csv
+            obm_tx_count_daily.png
     scripts/
+        LICENSE
         compute_obm_tx_count_daily.py
         plot_obm_csv.py
-    docs/
-        obm_tx_count_daily.md
-    figures/
-        obm_tx_count_daily.png
 ```
 
-The structure may expand as additional metrics are added.
+The structure will expand as additional metrics are added.
 
 ## Reproducibility requirements
 
-Most OBM scripts assume:
+OBM scripts assume:
 
 - a synchronized Bitcoin Core full node;
 - access to the Bitcoin Core JSON-RPC interface;
@@ -246,17 +244,15 @@ Open Bitcoin Metrics, OBM v0.1.0.
 
 ## Academic paper
 
-The project is being developed alongside a data descriptor manuscript tentatively titled:
+The project is being developed alongside a data descriptor manuscript tentatively titled
+"Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for Economic Research"
 
-```text
-Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for Economic Research
-```
-
-The intended contribution of the paper is to document the dataset, metric definitions, reconstruction algorithms, validation procedures, and usage notes.
+The intended contribution of the paper is to document the dataset, metric definitions, reconstruction 
+algorithms, validation procedures, and usage notes.
 
 ## License
 
-- code: MIT License;
+- code: MIT License.
 - data and documentation: Creative Commons Attribution 4.0 International, CC BY 4.0.
 
 ## Contact
@@ -264,7 +260,7 @@ The intended contribution of the paper is to document the dataset, metric defini
 Maintainer:
 
 ```text
-Diego R. Llanos
+Prof. Diego R. Llanos, diego.llanos@uva.es
 Department of Computer Science
 University of Valladolid, Spain
 ```
