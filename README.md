@@ -145,6 +145,7 @@ open-bitcoin-metrics/
     CITATION.cff
     data/
         DATA_LICENSE
+        obm_issuance_btc_daily/
         obm_tx_count_daily/
         obm_block_count_daily/
     scripts/
@@ -264,17 +265,19 @@ Open Bitcoin Metrics, OBM v0.1.0.
 ## Academic paper
 
 The project is being developed alongside a data descriptor manuscript tentatively titled
-"Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for Economic Research".
+"Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for 
+Economic Research".
 
-The intended contribution of the paper is to document the dataset, metric definitions, 
-reconstruction algorithms, validation procedures, and usage notes.
+The intended contribution of the paper, that is not yet publicly available, is to document the 
+dataset, metric definitions, reconstruction algorithms, validation procedures, and usage notes. We
+will update this information as soon as the paper becomes available. 
 
 ## License
 
-- code: MIT License.
-- data and documentation: Creative Commons Attribution 4.0 International, CC BY 4.0.
+- Code: MIT License.
+- Data and documentation: Creative Commons Attribution 4.0 International, CC BY 4.0.
 
-See the corresponding `LICENSE` files in the `data/` and `scripts` directories.
+See the corresponding `LICENSE` files in the `data/` and `scripts/` directories.
 
 ## Contact
 
