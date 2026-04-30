@@ -1,0 +1,179 @@
+# Open Bitcoin Metrics: Daily Block Count
+
+This repository provides the following time series of the **Open Bitcoin Metrics (OBM)** project:
+
+```text
+obm_block_count_daily
+```
+
+The series reports the daily number of Bitcoin blocks confirmed on-chain, computed directly from a running Bitcoin Core full node.
+
+## Metric summary
+
+| Field | Value |
+|---|---|
+| Series identifier | `obm_block_count_daily` |
+| Display name | Daily Bitcoin block count |
+| Unit | `blocks` |
+| Frequency | `daily` |
+| Time convention | UTC calendar day |
+| Source layer | Bitcoin Core full node |
+| External data required | No |
+| Main use | Block production, network operation, normalization of block-level metrics |
+
+## Definition
+
+Let \(B_d\) denote the set of Bitcoin blocks assigned to UTC calendar day \(d\). The daily block count is defined as:
+
+```text
+BlockCount_d = |B_d|
+```
+
+where \(|B_d|\) is the number of blocks whose timestamps fall within UTC calendar day \(d\).
+
+A block is assigned to a day according to the UTC date derived from the block timestamp returned by Bitcoin Core.
+
+## Interpretation
+
+`obm_block_count_daily` is a basic indicator of Bitcoin block production. It measures how many blocks were included in the main chain during each UTC calendar day.
+
+This metric is useful for:
+
+- studying realized block production over time;
+- checking deviations from the expected average of approximately 144 blocks per day;
+- normalizing other block-level metrics;
+- interpreting daily variation in transaction count, fees, block weight, and issuance;
+- building econometric datasets for Bitcoin research.
+
+Bitcoin targets an average inter-block interval of approximately 10 minutes, so the expected number of blocks per day is approximately:
+
+```text
+24 hours * 6 blocks per hour = 144 blocks per day
+```
+
+However, the realized number of blocks per UTC day fluctuates because block discovery is probabilistic, mining difficulty adjusts only periodically, and block timestamps do not necessarily align with exact calendar boundaries.
+
+The series should therefore not be interpreted as a measure of demand or economic activity by itself. Rather, it captures the daily number of blocks available for transaction settlement.
+
+## Data format
+
+The CSV file follows the standard OBM schema:
+
+```text
+date,series_id,value,unit,frequency,release_version
+```
+
+Example:
+
+```csv
+date,series_id,value,unit,frequency,release_version
+2024-01-01,obm_block_count_daily,147,blocks,daily,OBM v0.1.0
+2024-01-02,obm_block_count_daily,141,blocks,daily,OBM v0.1.0
+```
+
+### Columns
+
+| Column | Description |
+|---|---|
+| `date` | UTC calendar date in `YYYY-MM-DD` format |
+| `series_id` | Stable OBM identifier: `obm_block_count_daily` |
+| `value` | Number of Bitcoin blocks assigned to the UTC date |
+| `unit` | Measurement unit: `blocks` |
+| `frequency` | Observation frequency: `daily` |
+| `release_version` | OBM dataset release version |
+
+## Reproducibility
+
+The metric is generated using a Python script that queries a local Bitcoin Core node through JSON-RPC.
+You can find the script in the "scripts" directory of this repository.
+
+For each block in the requested date interval, the script:
+
+1. obtains the block hash from the block height;
+2. retrieves the decoded block object from Bitcoin Core;
+3. reads the block timestamp;
+4. assigns the block to a UTC calendar day using that timestamp;
+5. adds one unit to the daily count for the corresponding day;
+6. writes the resulting time series to CSV.
+
+The script uses a safety height margin around the estimated date interval because Bitcoin block timestamps are not strictly monotonic in block height. This reduces the risk of missing blocks near daily boundaries.
+
+## Typical script usage
+
+Generate the CSV file:
+
+```bash
+python3 compute_obm_block_count_daily.py \
+  --start_date 2024-01-01 \
+  --end_date 2024-01-31 \
+  --output data/daily/obm_block_count_daily.csv
+```
+
+Generate the CSV file and a plot:
+
+```bash
+python3 compute_obm_block_count_daily.py \
+  --start_date 2024-01-01 \
+  --end_date 2024-01-31 \
+  --output data/daily/obm_block_count_daily.csv \
+  --plot \
+  --plot_output figures/obm_block_count_daily.png
+```
+
+## Requirements
+
+The generation script assumes:
+
+- a synchronized Bitcoin Core full node;
+- access to the Bitcoin Core JSON-RPC interface;
+- Python 3;
+- `matplotlib`, only if plot generation is requested.
+
+This metric does not require transaction-output reconstruction, address extraction, UTXO-set reconstruction, transaction-value parsing, fee computation, or external price data.
+
+## Validation
+
+The following internal checks are recommended:
+
+- verify that every requested date appears exactly once;
+- check that values are non-negative integers;
+- confirm that the scanned block-height range covers the requested dates;
+- verify that the total number of counted blocks equals the number of scanned blocks whose timestamps fall inside the requested date interval;
+- compare selected periods with external public Bitcoin data providers as a diagnostic check;
+- inspect days with unusually high or unusually low block counts, since these may reflect normal mining variance, difficulty-adjustment dynamics, timestamp effects, or data-extraction issues.
+
+External comparisons should be interpreted cautiously because providers may use different timestamp conventions, reorganization policies, or daily-boundary rules.
+
+## Known limitations
+
+This metric has several limitations:
+
+- it counts blocks, not transactions;
+- it does not measure transaction demand or economic activity directly;
+- it does not measure block size, block weight, fees, or transaction volume;
+- it depends on the block timestamp convention used to assign blocks to calendar days;
+- short-run deviations from 144 blocks per day are normal and should not be interpreted mechanically as changes in network health.
+
+Despite these limitations, `obm_block_count_daily` is a useful baseline indicator of Bitcoin block production. It is also valuable as a normalization variable for other OBM metrics, especially transaction count, fees, issuance, miner revenue, block weight, and other block-level aggregates.
+
+## Suggested citation
+
+A formal citation will be added once the dataset receives a DOI.
+
+For now, please cite this repository as:
+
+```text
+Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
+Metric: Daily Bitcoin Block Count (obm_block_count_daily).
+GitHub repository, version OBM v0.1.0.
+https://github.com/diegorllanos/open-bitcoin-metrics/
+```
+
+## License
+
+- MIT License for code;
+- CC BY 4.0 for data and documentation.
+
+## Project status
+
+This repository is part of the broader **Open Bitcoin Metrics** project, which aims to provide transparent, reproducible, full-node-derived Bitcoin time series for economic and econometric research.
