@@ -6318,3 +6318,12 @@ date,series_id,value,unit,frequency,release_version
 2026-04-18,obm_tx_count_daily,695157,transactions,daily,OBM v0.1.0
 2026-04-19,obm_tx_count_daily,727793,transactions,daily,OBM v0.1.0
 2026-04-20,obm_tx_count_daily,547526,transactions,daily,OBM v0.1.0
+2026-04-21,obm_tx_count_daily,537497,transactions,daily,OBM v0.1.0
+2026-04-22,obm_tx_count_daily,542847,transactions,daily,OBM v0.1.0
+2026-04-23,obm_tx_count_daily,450825,transactions,daily,OBM v0.1.0
+2026-04-24,obm_tx_count_daily,589597,transactions,daily,OBM v0.1.0
+2026-04-25,obm_tx_count_daily,581159,transactions,daily,OBM v0.1.0
+2026-04-26,obm_tx_count_daily,712904,transactions,daily,OBM v0.1.0
+2026-04-27,obm_tx_count_daily,580030,transactions,daily,OBM v0.1.0
+2026-04-28,obm_tx_count_daily,566274,transactions,daily,OBM v0.1.0
+2026-04-29,obm_tx_count_daily,383942,transactions,daily,OBM v0.1.0

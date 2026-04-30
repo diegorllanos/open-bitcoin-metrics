@@ -1,2 +1,0 @@
-obm_tx_count_daily: 6319 daily observations, real 10772,73 seg.
-

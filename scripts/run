@@ -1,3 +1,0 @@
-#!/bin/bash
-python compute_obm_tx_count_daily.py --start_date 2009-01-01 --end_date 2026-04-20 --output obm_tx_count_daily.csv --rpc_user bitcoin --rpc_password HLlFLqyzpRJIxQP8Ss_htsRDMXi_hJIbIwb_uQ04qwk --plot
-
