@@ -45,7 +45,8 @@ Future metrics planned for inclusion include:
 | Series identifier | Display name | Main use |
 |---|---|---|
 | `obm_supply_btc_daily` | Circulating Bitcoin supply | Monetary supply, scarcity, normalization |
-| `obm_cdd_btc_days_daily` | Bitcoin Days Destroyed | Coin-age dynamics, long-term holder activity |
+| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Coin-age dynamics, long-term holder activity |
+| `obm_bincdd365d_btc_daily` | Binary Bitcoin Days Destroyed, 365-day threshold | Movement of coins under threshold rules |
 | `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
 | `obm_dormancy_days_daily` | Dormancy | Average age of coins moved |
 | `obm_fees_btc_daily` | Total transaction fees in BTC | Fee market and block-space demand |
@@ -54,7 +55,6 @@ Future metrics planned for inclusion include:
 | `obm_block_weight_avg_daily` | Average block weight | Block-space utilization |
 | `obm_fee_median_satvbyte_daily` | Median fee rate | Typical transaction cost |
 | `obm_spent_value_btc_daily` | Total spent output value | Gross on-chain settlement value |
-| `obm_binary_cdd_daily` | Binary Bitcoin Days Destroyed | Movement of older coins under threshold rules |
 | `obm_active_addresses_daily` | Active addresses | Approximate network participation |
 | `obm_tx_volume_usd_daily` | Transaction volume in USD | Fiat-denominated settlement activity |
 
@@ -196,7 +196,7 @@ compute_obm_block_count_daily.py [-h]
 ```
 
 For example, the following invocation generates the daily transaction-count series and 
-the corresponding plot::
+the corresponding plot:
 
 ```bash
 python3 scripts/compute_obm_tx_count_daily.py \
