@@ -112,6 +112,12 @@ python3 compute_obm_tx_count_daily.py \
   --plot_output figures/obm_tx_count_daily.png
 ```
 
+## Time needed for complete execution 
+
+For reference, the execution time consumed by this script, on an Intel(R) Core(TM) i5-7400 CPU 
+@ 3.00GHz with 32Gb RAM, running Bitcoin Core locally, from 2009-01-01 to 2026-04-29, was 
+around three hours. 
+
 ## Requirements
 
 The generation script assumes:

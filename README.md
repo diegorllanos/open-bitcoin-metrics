@@ -143,20 +143,18 @@ The repository structure is the following:
 
 ```text
 open-bitcoin-metrics/
+    obm_issuance_btc_daily/
+    obm_tx_count_daily/
+    obm_block_count_daily/
     README.md
     CITATION.cff
-    data/
-        DATA_LICENSE
-        obm_issuance_btc_daily/
-        obm_tx_count_daily/
-        obm_block_count_daily/
-    scripts/
-        LICENSE
-        compute_obm_tx_count_daily.py
-        compute_obm_block_count_daily.py
-        compute_obm_issuance_btc_daily.py
-        plot_obm_csv.py
+    DATA_LICENSE
+    LICENSE
+    plot_obm_csv.py
 ```
+
+Inside each metric directory there are three files: the "compute" Python script; the CSV file and a 
+PNG containing a plot representing the metric. 
 
 The structure will expand as additional metrics are added.
 
