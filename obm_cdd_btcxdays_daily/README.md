@@ -167,6 +167,13 @@ python3 compute_obm_cdd_btcxdays_daily.py \
   --state_db cache/obm_cdd_btcxdays_state.sqlite \
   --min_confirmations 100
 ```
+## Time needed for complete execution 
+
+For reference, the execution time consumed by this script, on an Intel(R) Core(TM) i5-7400 CPU 
+@ 3.00GHz with 32Gb RAM, running Bitcoin Core locally, from 2009-01-01 to 2026-04-29, 
+was... TBD
+The use of a SQLite database allows to obtain the results up to a certain date, and, when executing
+again, restart the calculations from the last block considered.
 
 ## Requirements
 
