@@ -255,11 +255,13 @@ Take into account that this metric:
 - depends on the block timestamp convention used to compute output age and daily assignment;
 - may differ from commercial CDD-like metrics such as Coin Metrics' `TxTfrValDayDst`;
 - is especially sensitive to definitional choices in the earliest Bitcoin period;
-- does not identify users, entities, or economically distinct payments;
 - does not adjust for self-transfers, change outputs, custodial activity, or exchange operations;
 - requires a persistent local state database for efficient incremental updates.
+- carries out a reconstruction which explicitly handles the two historical duplicate coinbase 
+transaction pairs that existed before BIP30 enforcement by overwriting the earlier txid:vout entry 
+in the local outpoint state and recording the event in metadata.
 
-Despite these facts, `obm_cdd_btcxdays_daily` is a useful baseline coin-age metric. It provides a transparent measure of destroyed coin age and is valuable for studying long-term holder behavior, dormant-supply movement, dormancy, and the relationship between on-chain activity and market conditions.
+Said that, `obm_cdd_btcxdays_daily` is a useful baseline coin-age metric which provides a transparent measure of destroyed coin age and is valuable for studying long-term holder behavior, dormant-supply movement, dormancy, and the relationship between on-chain activity and market conditions.
 
 ## Suggested citation
 

@@ -516,74 +516,40 @@ def verify_chain_consistency(rpc: BitcoinRPC, conn: sqlite3.Connection) -> None:
 # ---------------------------------------------------------------------
 # Outpoint database operations
 # ---------------------------------------------------------------------
+
 def insert_outputs(
     conn: sqlite3.Connection,
     tx: Dict[str, Any],
     block_time: int,
     height: int,
-    block_hash: str,
-    tx_index: int,
 ) -> None:
     txid = tx["txid"]
+    rows = []
 
     for vout in tx.get("vout", []):
         n = int(vout["n"])
         value_sats = btc_to_sats(vout["value"])
 
-        existing = conn.execute(
-            """
-            SELECT value_sats, created_time, created_height
-            FROM outpoints
-            WHERE txid = ? AND vout = ?;
-            """,
-            (txid, n),
-        ).fetchone()
-
-        if existing is not None:
-            old_value_sats = int(existing[0])
-            old_created_time = int(existing[1])
-            old_created_height = int(existing[2])
-            old_created_date = timestamp_to_utc_date(old_created_time).isoformat()
-
-            print(
-                "WARNING: duplicate outpoint overwritten: "
-                f"txid={txid}, vout={n}, "
-                f"old_height={old_created_height}, "
-                f"old_date={old_created_date}, "
-                f"old_time={old_created_time}, "
-                f"old_value_sats={old_value_sats}, "
-                f"new_height={height}, "
-                f"new_time={block_time}, "
-                f"new_value_sats={value_sats}, "
-                f"block_hash={block_hash}, "
-                f"tx_index={tx_index}",
-                file=sys.stderr,
+        rows.append(
+            (
+                txid,
+                n,
+                value_sats,
+                block_time,
+                height,
             )
+        )
 
-            increment_metadata_counter(
-                conn,
-                "duplicate_outpoints_overwritten",
-                1,
-            )
-
-        # Historical duplicate txids existed before BIP30 enforcement.
-        # In particular, duplicate coinbase transactions at heights 91842
-        # and 91880 duplicate earlier coinbases at heights 91812 and 91722.
-        # For the local CDD state, the later outpoint overwrites the earlier
-        # txid:vout entry. The overwritten output is not counted as spent
-        # and therefore does not generate CDD.
-        conn.execute(
+    if rows:
+        conn.executemany(
             """
             INSERT INTO outpoints
             (txid, vout, value_sats, created_time, created_height)
-            VALUES (?, ?, ?, ?, ?)
-            ON CONFLICT(txid, vout) DO UPDATE SET
-                value_sats = excluded.value_sats,
-                created_time = excluded.created_time,
-                created_height = excluded.created_height;
+            VALUES (?, ?, ?, ?, ?);
             """,
-            (txid, n, value_sats, block_time, height),
+            rows,
         )
+
 
 def spend_input(
     conn: sqlite3.Connection,
@@ -747,8 +713,6 @@ def process_block(
             tx=tx,
             block_time=block_time,
             height=height,
-            block_hash=block_hash,
-            tx_index=tx_index,
         )
 
     add_daily_cdd(
