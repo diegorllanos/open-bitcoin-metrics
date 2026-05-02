@@ -2,15 +2,15 @@
 """
 compute_obm_accum_issuance_btc_daily.py
 
-Generate the Open Bitcoin Metrics accumulated Bitcoin issuance series:
+Generate the Open Bitcoin Metrics Bitcoin supply series:
 
-    obm_accum_issuance_btc_daily
+    obm_supply_btc_daily
 
-The script reads an existing OBM daily issuance CSV file:
+The script reads an existing OBM complete daily issuance CSV file:
 
     obm_issuance_btc_daily.csv
 
-and computes cumulative issuance between --start_date and --end_date,
+and computes cumulative issuance between 2009-01-01 and --end_date,
 both inclusive.
 
 Output schema:
@@ -21,12 +21,11 @@ Example:
 
     python3 compute_obm_accum_issuance_btc_daily.py \
         obm_issuance_btc_daily.csv \
-        --start_date 2024-01-01 \
         --end_date 2024-01-31 \
         --output obm_accum_issuance_btc_daily.csv
 
-The cumulative value is reset at --start_date. Therefore, the value for
---start_date equals the daily issuance on --start_date.
+The cumulative value is reset at 2009-01-01. Therefore, the value for
+start_date equals the daily issuance on 2009-01-01.
 """
 
 from __future__ import annotations
@@ -237,7 +236,7 @@ def plot_obm_series(
     fig, ax = plt.subplots(figsize=(11, 5.5))
     ax.plot(dates, values)
 
-    start_date = min(dates).isoformat()
+    start_date = date(2009, 1, 1)
     end_date = max(dates).isoformat()
 
     ax.set_title(
@@ -265,13 +264,6 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "input_csv",
         help="Input CSV file for obm_issuance_btc_daily.",
-    )
-
-    parser.add_argument(
-        "--start_date",
-        required=True,
-        type=parse_utc_date,
-        help="Start date, inclusive, in YYYY-MM-DD format.",
     )
 
     parser.add_argument(
@@ -317,14 +309,14 @@ def main() -> int:
 
         accum_values = compute_accumulated_issuance(
             issuance_rows=issuance_rows,
-            start_date=args.start_date,
             end_date=args.end_date,
+            start_date=date(2009, 1, 1)
         )
 
         release_version = infer_release_version(
             issuance_rows=issuance_rows,
-            start_date=args.start_date,
             end_date=args.end_date,
+            start_date=date(2009, 1, 1)
         )
 
         write_obm_csv(

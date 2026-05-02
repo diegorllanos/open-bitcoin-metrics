@@ -3,10 +3,11 @@
 This repository provides the following derived time series of the **Open Bitcoin Metrics (OBM)** project:
 
 ```text
-obm_accum_issuance_btc_daily
+obm_supply_btc_daily
 ```
 
-The series reports accumulated Bitcoin issuance, measured in BTC, over a user-selected date interval. It is derived directly from the OBM daily realized issuance series:
+The series reports accumulated Bitcoin supply, measured in BTC, from 2009-01-01. It is derived directly from the 
+OBM daily realized issuance series:
 
 ```text
 obm_issuance_btc_daily
@@ -16,8 +17,8 @@ obm_issuance_btc_daily
 
 | Field | Value |
 |---|---|
-| Series identifier | `obm_accum_issuance_btc_daily` |
-| Display name | Accumulated Bitcoin issuance |
+| Series identifier | `obm_supply_btc_daily` |
+| Display name | Accumulated Bitcoin supply |
 | Unit | `BTC` |
 | Frequency | `daily` |
 | Time convention | UTC calendar day |
@@ -33,7 +34,7 @@ Let `Issuance_d` denote the realized Bitcoin issuance on UTC calendar day `d`, a
 obm_issuance_btc_daily
 ```
 
-For a selected date interval from `s` to `e`, both inclusive, accumulated issuance at date `d` is defined as:
+For a selected date interval from `s=2009-01-01` to `e`, both inclusive, accumulated supply at date `d` is defined as:
 
 ```text
 AccumIssuance_d = sum_{k=s}^{d} Issuance_k
@@ -45,22 +46,23 @@ for every date `d` such that:
 s <= d <= e
 ```
 
-The cumulative value is reset at the selected starting date. Therefore, the value on the first date of the interval equals the daily issuance on that date:
+The cumulative value is reset at 2009-01-01. Therefore, the value on the first date of the interval equals 
+the daily issuance on that date:
 
 ```text
 AccumIssuance_s = Issuance_s
 ```
 
-This metric is therefore an interval-specific cumulative flow, not necessarily cumulative issuance since the Bitcoin genesis block unless the chosen start date is the first available date.
+This metric is therefore a cumulative Bitcoin supply since the Bitcoin genesis block.
 
 ## Interpretation
 
-`obm_accum_issuance_btc_daily` measures how much new Bitcoin has been issued cumulatively between two selected dates.
+`obm_supply_btc_daily` measures how much new Bitcoin has been issued cumulatively since the Bitcoin genesis block, inclusive.
 
 This metric is useful for:
 
-- measuring total realized issuance over a research window;
-- studying cumulative supply growth over selected periods;
+- measuring total realized issuance up to a certain date
+- studying cumulative supply growth; 
 - analyzing issuance before and after halving events;
 - comparing monetary expansion across subperiods;
 - building econometric or descriptive datasets where cumulative issuance is required;
@@ -78,19 +80,10 @@ The source metric reports the daily flow of newly issued BTC:
 obm_issuance_btc_daily
 ```
 
-The accumulated metric reports the running sum of those daily flows from the selected starting date:
+The accumulated metric reports the running sum of those daily flows from 2009-01-01:
 
 ```text
-obm_accum_issuance_btc_daily
-```
-
-For example:
-
-```csv
-date,obm_issuance_btc_daily,obm_accum_issuance_btc_daily
-2024-01-01,918.75000000,918.75000000
-2024-01-02,881.25000000,1800.00000000
-2024-01-03,900.00000000,2700.00000000
+obm_supply_btc_daily
 ```
 
 The accumulated series is therefore best understood as a derived convenience metric. It makes explicit a transformation that researchers often apply manually when computing period issuance.
@@ -107,8 +100,8 @@ Example:
 
 ```csv
 date,series_id,value,unit,frequency,release_version
-2024-01-01,obm_accum_issuance_btc_daily,918.75000000,BTC,daily,OBM v0.1.0
-2024-01-02,obm_accum_issuance_btc_daily,1800.00000000,BTC,daily,OBM v0.1.0
+2024-01-01,obm_supply_btc_daily,19587102.29497096,BTC,daily,OBM v0.1.0
+2024-01-02,obm_supply_btc_daily,19587921.04497096,BTC,daily,OBM v0.1.0
 ```
 
 ### Columns
@@ -116,7 +109,7 @@ date,series_id,value,unit,frequency,release_version
 | Column | Description |
 |---|---|
 | `date` | UTC calendar date in `YYYY-MM-DD` format |
-| `series_id` | Stable OBM identifier: `obm_accum_issuance_btc_daily` |
+| `series_id` | Stable OBM identifier: `obm_supply_btc_daily` |
 | `value` | Accumulated Bitcoin issuance from the selected start date |
 | `unit` | Measurement unit: `BTC` |
 | `frequency` | Observation frequency: `daily` |
@@ -144,23 +137,21 @@ Unlike `obm_issuance_btc_daily`, this script does not query Bitcoin Core and doe
 Generate the CSV file:
 
 ```bash
-python3 compute_obm_accum_issuance_btc_daily.py \
+python3 compute_obm_supply_btc_daily.py \
   data/daily/obm_issuance_btc_daily.csv \
-  --start_time 2024-01-01 \
-  --end_time 2024-01-31 \
-  --output data/daily/obm_accum_issuance_btc_daily.csv
+  --end_date 2024-01-31 \
+  --output data/daily/obm_supply_btc_daily.csv
 ```
 
 Generate the CSV file and a plot:
 
 ```bash
-python3 compute_obm_accum_issuance_btc_daily.py \
+python3 compute_obm_supply_btc_daily.py \
   data/daily/obm_issuance_btc_daily.csv \
-  --start_time 2024-01-01 \
-  --end_time 2024-01-31 \
-  --output data/daily/obm_accum_issuance_btc_daily.csv \
+  --end_date 2024-01-31 \
+  --output data/daily/obm_supply_btc_daily.csv \
   --plot \
-  --plot_output figures/obm_accum_issuance_btc_daily.png
+  --plot_output figures/obm_supply_btc_daily.png
 ```
 
 ## Requirements
@@ -189,7 +180,7 @@ The following internal checks are recommended:
 - verify that every requested date exists in the input `obm_issuance_btc_daily.csv`;
 - check that output values are non-negative BTC amounts;
 - check that the accumulated series is monotonically non-decreasing;
-- verify that first differences of `obm_accum_issuance_btc_daily` equal the corresponding values of `obm_issuance_btc_daily`;
+- verify that first differences of `obm_supply_btc_daily` equal the corresponding values of `obm_issuance_btc_daily`;
 - confirm that the source interval uses a single `release_version`.
 
 The most important consistency condition is:
@@ -206,12 +197,12 @@ It is important to remember that this metric:
 
 - is a derived series, not an independent full-node reconstruction;
 - depends entirely on the quality and completeness of `obm_issuance_btc_daily`;
-- resets its cumulative value at the selected starting date;
-- should not be confused with total cumulative Bitcoin supply unless the start date corresponds to the beginning of the issuance history;
+- resets its cumulative value at 2009-01-01.
+- Represents total cumulative Bitcoin supply, because the start date corresponds to the beginning of the issuance history;
 - inherits the timestamp convention, issuance definition, and release version of the source daily issuance series;
 - may change if the underlying daily issuance series is revised in a later OBM release.
 
-Despite these limitations, `obm_accum_issuance_btc_daily` is a useful derived OBM series. It provides a convenient measure of cumulative realized issuance over arbitrary research intervals and supports monetary-supply, halving-period, and supply-growth analysis.
+Despite these limitations, `obm_supply_btc_daily` is a useful derived OBM series. It provides a convenient measure of cumulative realized issuance over arbitrary research intervals and supports monetary-supply, halving-period, and supply-growth analysis.
 
 ## Suggested citation
 
@@ -221,12 +212,13 @@ For now, please cite this repository as:
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
-Metric: Accumulated Bitcoin Issuance (obm_accum_issuance_btc_daily).
+Metric: Accumulated Bitcoin Issuance (obm_supply_btc_daily).
 GitHub repository, version OBM v0.1.0.
 https://github.com/diegorllanos/open-bitcoin-metrics/
 ```
 
-Because this metric is derived from `obm_issuance_btc_daily`, users should also cite the daily issuance series when this accumulated metric is used.
+Because this metric is derived from `obm_issuance_btc_daily`, users should also cite the daily issuance series when this 
+accumulated metric is used.
 
 ## License
 
