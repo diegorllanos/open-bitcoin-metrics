@@ -26,8 +26,10 @@ The project is in an early stage. Metrics are being added one at a time, with pr
 
 The available metrics so far are the following:
 
-- `obm_issuance_btc_daily` reports the real, daily Bitcoin issuance confirmed on-chain.
 - `obm_block_count_daily` reports the daily number of Bitcoin blocks confirmed on-chain. 
+- `obm_cdd_btcxdays_daily` reports the Bitcoin Days Destroyed metric. 
+- `obm_issuance_btc_daily` reports the real, daily Bitcoin issuance confirmed on-chain.
+- `obm_supply_btc_daily` reports the accumulated Bitcoin supply since the genesis block. 
 - `obm_tx_count_daily` reports the daily number of Bitcoin transactions confirmed on-chain.
 
 ## Available metrics
