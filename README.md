@@ -51,7 +51,6 @@ Future metrics planned for inclusion include:
 | `obm_fee_median_satvbyte_daily` | Median fee rate | Typical transaction cost |
 | `obm_tx_volume_usd_daily` | Transaction volume in USD | Fiat-denominated settlement activity |
 | `obm_active_addresses_daily` | Active addresses | Approximate network participation |
-|---|---|---|
 
 The planned list may evolve as definitions are refined and validation procedures are developed.
 
