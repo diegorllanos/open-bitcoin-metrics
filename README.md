@@ -43,7 +43,6 @@ monetary supply, scarcity, and normalization.
 | `obm_issuance_btc_daily` | Daily Bitcoin issuance | Daily | BTCs | 
 | `obm_supply_btc_daily` | Circulating Bitcoin supply | Daily | BTCs |
 | `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | 
-|---|---|---|---|
 
 ## Future  metrics
 
