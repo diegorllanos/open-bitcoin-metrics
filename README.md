@@ -27,11 +27,12 @@ The project is in an early stage. Metrics are being added one at a time, with pr
 The available metrics so far are the following:
 
 - `obm_block_count_daily` reports the daily number of Bitcoin blocks confirmed on-chain. 
-- `obm_cdd_btcxdays_daily` reports the Bitcoin Days Destroyed metric. Useful for studying coin-age dynamics and
-long-term holder activity.
+- `obm_cdd_btcxdays_daily` reports the Bitcoin Days Destroyed metric. 
+Useful for studying coin-age dynamics and long-term holder activity.
 - `obm_issuance_btc_daily` reports the real, daily Bitcoin issuance confirmed on-chain.
-- `obm_supply_btc_daily` reports the accumulated Bitcoin supply since the genesis block. Useful for studying 
-monetary supply, scarcity, and normalization.
+- `obm_miner_revenue_btc_daily` reports the daily miner revenue in BTC.
+- `obm_supply_btc_daily` reports the accumulated Bitcoin supply since the genesis block. 
+Useful for studying monetary supply, scarcity, and normalization.
 - `obm_tx_count_daily` reports the daily number of Bitcoin transactions confirmed on-chain.
 
 ## Available metrics
@@ -41,6 +42,7 @@ monetary supply, scarcity, and normalization.
 | `obm_block_count_daily` | Daily Bitcoin block count | Daily | Blocks | 
 | `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | | Daily | BTCs x days | 
 | `obm_issuance_btc_daily` | Daily Bitcoin issuance | Daily | BTCs | 
+| `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Daily | BTCs |
 | `obm_supply_btc_daily` | Circulating Bitcoin supply | Daily | BTCs |
 | `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | 
 
@@ -50,7 +52,6 @@ Future metrics planned for inclusion include:
 
 | Series identifier | Display name | Main use |
 |---|---|---|
-| `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Miner incentives and security budget |
 | `obm_fees_btc_daily` | Total transaction fees in BTC | Fee market and block-space demand |
 | `obm_fees_share_miner_revenue_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
 | `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
