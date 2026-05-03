@@ -35,9 +35,9 @@ The available metrics so far are the following:
 | Series identifier | Display name | Frequency | Unit | Status |
 |---|---|---|---|---|
 | `obm_block_count_daily` | Daily Bitcoin block count | Daily | Transactions | Available |
-| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Coin-age dynamics, long-term holder activity |
+| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Coin-age dynamics, long-term holder activity | Daily | BTCs x days | Available |
 | `obm_issuance_btc_daily` | Daily Bitcoin issuance | Daily | BTCs | Available |
-| `obm_accum_issuance_btc_daily` | Accumulated Bitcoin supply | Daily | BTCs | Available |
+| `obm_supply_btc_daily` | Circulating Bitcoin supply | Monetary supply, scarcity, normalization |
 | `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | Available |
 
 ## Future  metrics
@@ -46,7 +46,6 @@ Future metrics planned for inclusion include:
 
 | Series identifier | Display name | Main use |
 |---|---|---|
-| `obm_supply_btc_daily` | Circulating Bitcoin supply | Monetary supply, scarcity, normalization |
 | `obm_bincdd365d_btc_daily` | Binary Bitcoin Days Destroyed, 365-day threshold | Movement of coins under threshold rules |
 | `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
 | `obm_dormancy_days_daily` | Dormancy | Average age of coins moved |
