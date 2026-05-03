@@ -27,20 +27,23 @@ The project is in an early stage. Metrics are being added one at a time, with pr
 The available metrics so far are the following:
 
 - `obm_block_count_daily` reports the daily number of Bitcoin blocks confirmed on-chain. 
-- `obm_cdd_btcxdays_daily` reports the Bitcoin Days Destroyed metric. 
+- `obm_cdd_btcxdays_daily` reports the Bitcoin Days Destroyed metric. Useful for studying coin-age dynamics and
+long-term holder activity.
 - `obm_issuance_btc_daily` reports the real, daily Bitcoin issuance confirmed on-chain.
-- `obm_supply_btc_daily` reports the accumulated Bitcoin supply since the genesis block. 
+- `obm_supply_btc_daily` reports the accumulated Bitcoin supply since the genesis block. Useful for studying 
+monetary supply, scarcity, and normalization.
 - `obm_tx_count_daily` reports the daily number of Bitcoin transactions confirmed on-chain.
 
 ## Available metrics
 
-| Series identifier | Display name | Frequency | Unit | Status |
+| Series identifier | Display name | Frequency | Unit | 
 |---|---|---|---|---|
-| `obm_block_count_daily` | Daily Bitcoin block count | Daily | Transactions | Available |
-| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Coin-age dynamics, long-term holder activity | Daily | BTCs x days | Available |
-| `obm_issuance_btc_daily` | Daily Bitcoin issuance | Daily | BTCs | Available |
-| `obm_supply_btc_daily` | Circulating Bitcoin supply | Monetary supply, scarcity, normalization |
-| `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | Available |
+| `obm_block_count_daily` | Daily Bitcoin block count | Daily | Blocks | 
+| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | | Daily | BTCs x days | 
+| `obm_issuance_btc_daily` | Daily Bitcoin issuance | Daily | BTCs | 
+| `obm_supply_btc_daily` | Circulating Bitcoin supply | Daily | BTCs |
+| `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily | Transactions | 
+|---|---|---|---|---|
 
 ## Future  metrics
 
@@ -48,17 +51,18 @@ Future metrics planned for inclusion include:
 
 | Series identifier | Display name | Main use |
 |---|---|---|
-| `obm_bincdd365d_btc_daily` | Binary Bitcoin Days Destroyed, 365-day threshold | Movement of coins under threshold rules |
+| `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Miner incentives and security budget |
+| `obm_fees_btc_daily` | Total transaction fees in BTC | Fee market and block-space demand |
+| `obm_fees_share_miner_revenue_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
 | `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
 | `obm_dormancy_days_daily` | Dormancy | Average age of coins moved |
-| `obm_fees_btc_daily` | Total transaction fees in BTC | Fee market and block-space demand |
-| `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Miner incentives and security budget |
-| `obm_fees_share_miner_revenue_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
+| `obm_spent_value_btc_daily` | Total spent output value | Gross on-chain settlement value |
+| `obm_bincdd365d_btc_daily` | Binary Bitcoin Days Destroyed, 365-day threshold | Movement of coins under threshold rules |
 | `obm_block_weight_avg_daily` | Average block weight | Block-space utilization |
 | `obm_fee_median_satvbyte_daily` | Median fee rate | Typical transaction cost |
-| `obm_spent_value_btc_daily` | Total spent output value | Gross on-chain settlement value |
-| `obm_active_addresses_daily` | Active addresses | Approximate network participation |
 | `obm_tx_volume_usd_daily` | Transaction volume in USD | Fiat-denominated settlement activity |
+| `obm_active_addresses_daily` | Active addresses | Approximate network participation |
+|---|---|---|
 
 The planned list may evolve as definitions are refined and validation procedures are developed.
 
