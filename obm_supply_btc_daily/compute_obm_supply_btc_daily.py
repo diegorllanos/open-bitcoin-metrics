@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-compute_obm_accum_issuance_btc_daily.py
+compute_obm_supply_btc_daily.py
 
 Generate the Open Bitcoin Metrics Bitcoin supply series:
 
@@ -19,10 +19,10 @@ Output schema:
 
 Example:
 
-    python3 compute_obm_accum_issuance_btc_daily.py \
+    python3 compute_obm_supply_btc_daily.py \
         obm_issuance_btc_daily.csv \
         --end_date 2024-01-31 \
-        --output obm_accum_issuance_btc_daily.csv
+        --output obm_supply_btc_daily.csv
 
 The cumulative value is reset at 2009-01-01. Therefore, the value for
 start_date equals the daily issuance on 2009-01-01.
@@ -40,7 +40,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 
-SERIES_ID = "obm_accum_issuance_btc_daily"
+SERIES_ID = "obm_supply_btc_daily"
 INPUT_SERIES_ID = "obm_issuance_btc_daily"
 UNIT = "BTC"
 FREQUENCY = "daily"
@@ -275,7 +275,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
     parser.add_argument(
         "--output",
-        default="obm_accum_issuance_btc_daily.csv",
+        default="obm_supply_btc_daily.csv",
         help="Output CSV file path.",
     )
 
