@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-compute_obm_fee_share_miner_revenue_ratio_daily.py
+compute_obm_fee_share_revenue_ratio_daily.py
 
 Generate the Open Bitcoin Metrics daily fee-share-of-miner-revenue series:
 
-    obm_fee_share_miner_revenue_ratio_daily
+    obm_fee_share_revenue_ratio_daily
 
 The script reads two existing OBM CSV files:
 
@@ -23,12 +23,12 @@ Output schema:
 
 Example:
 
-    python3 compute_obm_fee_share_miner_revenue_ratio_daily.py \
+    python3 compute_obm_fee_share_revenue_ratio_daily.py \
         data/daily/obm_issuance_btc_daily.csv \
         data/daily/obm_fees_btc_daily.csv \
         --start_date 2024-01-01 \
         --end_date 2024-01-31 \
-        --output data/daily/obm_fee_share_miner_revenue_ratio_daily.csv
+        --output data/daily/obm_fee_share_revenue_ratio_daily.csv
 """
 
 from __future__ import annotations
@@ -43,7 +43,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 
-SERIES_ID = "obm_fee_share_miner_revenue_ratio_daily"
+SERIES_ID = "obm_fee_share_revenue_ratio_daily"
 ISSUANCE_SERIES_ID = "obm_issuance_btc_daily"
 FEES_SERIES_ID = "obm_fees_btc_daily"
 
@@ -372,7 +372,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
     parser.add_argument(
         "--output",
-        default="obm_fee_share_miner_revenue_ratio_daily.csv",
+        default="obm_fee_share_revenue_ratio_daily.csv",
         help="Output CSV file path.",
     )
 
