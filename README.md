@@ -35,6 +35,7 @@ querying the Bitcoin blockchain. See the README.md file associated to each metri
 | `obm_block_count_daily` | Daily Bitcoin block count | Daily number of Bitcoin blocks confirmed on-chain | Daily | Blocks | Primary |
 | `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Daily Bitcoin Days Destroyed metric | Daily | BTCs x days | Primary |
 | `obm_fees_btc_daily` | Daily transaction fees in BTC | Daily transaction fees in BTCs |Daily | BTCs | Primary |
+| `obm_fee_share_miner_revenue_ratio_daily` | Fees as share of miner revenue | Transition from subsidy to fees | Daily | Ratio | Derived |
 | `obm_issuance_btc_daily` | Daily Bitcoin issuance | Real, daily Bitcoin issuance confirmed on-chain in BTCs | Daily | BTCs | Primary |
 | `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Daily miner revenue in BTCs | Daily | BTCs | Primary |
 | `obm_supply_btc_daily` | Circulating Bitcoin supply | Accumulated Bitcoin supply since the genesis block in BTCs | Daily | BTCs | Derived |
@@ -46,7 +47,6 @@ Future metrics planned for inclusion include:
 
 | Series identifier | Display name | Main use |
 |---|---|---|
-| `obm_fee_share_miner_revenue_ratio_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
 | `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
 | `obm_dormancy_days_daily` | Dormancy | Average age of coins moved |
 | `obm_spent_value_btc_daily` | Total spent output value | Gross on-chain settlement value |
