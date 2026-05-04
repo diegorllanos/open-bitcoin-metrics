@@ -24,17 +24,21 @@ OBM addresses this problem by providing a reproducible and openly documented alt
 
 The project is alive. Metrics are being added one at a time, with priority given to robustness, reproducibility, and clear documentation.
 
+"Primary" metrics are calculated by querying the Bitcoin blockchain. "Derived" metrics are calculated using primary metrics and without
+querying the Bitcoin blockchain. See the README.md file associated to each metric in its corresponding directory for more details.
+
+
 ## Available metrics so far
 
-| Series identifier | Display name | Description | Frequency | Unit | 
-|---|---|---|---|---|
-| `obm_block_count_daily` | Daily Bitcoin block count | Daily number of Bitcoin blocks confirmed on-chain | Daily | Blocks | 
-| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Daily Bitcoin Days Destroyed metric | Daily | BTCs x days | 
-| `obm_fees_btc_daily` | Daily transaction fees in BTC | Daily transaction fees in BTCs |Daily | BTCs | 
-| `obm_issuance_btc_daily` | Daily Bitcoin issuance | Real, daily Bitcoin issuance confirmed on-chain in BTCs | Daily | BTCs | 
-| `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Daily miner revenue in BTCs | Daily | BTCs | 
-| `obm_supply_btc_daily` | Circulating Bitcoin supply | Accumulated Bitcoin supply since the genesis block in BTCs | Daily | BTCs | 
-| `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily number of Bitcoin transactions confirmed on-chain | Daily | Transactions | 
+| Series identifier | Display name | Description | Frequency | Unit | Type |
+|---|---|---|---|---|---|
+| `obm_block_count_daily` | Daily Bitcoin block count | Daily number of Bitcoin blocks confirmed on-chain | Daily | Blocks | Primary |
+| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Daily Bitcoin Days Destroyed metric | Daily | BTCs x days | Primary |
+| `obm_fees_btc_daily` | Daily transaction fees in BTC | Daily transaction fees in BTCs |Daily | BTCs | Primary |
+| `obm_issuance_btc_daily` | Daily Bitcoin issuance | Real, daily Bitcoin issuance confirmed on-chain in BTCs | Daily | BTCs | Primary |
+| `obm_miner_revenue_btc_daily` | Miner revenue in BTC | Daily miner revenue in BTCs | Daily | BTCs | Primary |
+| `obm_supply_btc_daily` | Circulating Bitcoin supply | Accumulated Bitcoin supply since the genesis block in BTCs | Daily | BTCs | Derived |
+| `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily number of Bitcoin transactions confirmed on-chain | Daily | Transactions | Primary |
 
 ## Future  metrics
 
@@ -42,7 +46,7 @@ Future metrics planned for inclusion include:
 
 | Series identifier | Display name | Main use |
 |---|---|---|
-| `obm_fees_share_miner_revenue_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
+| `obm_fee_share_miner_revenue_ratio_daily` | Fees as share of miner revenue | Transition from subsidy to fees |
 | `obm_cdd_supply_adjusted_daily` | Supply-adjusted Bitcoin Days Destroyed | Comparable coin-age activity across eras |
 | `obm_dormancy_days_daily` | Dormancy | Average age of coins moved |
 | `obm_spent_value_btc_daily` | Total spent output value | Gross on-chain settlement value |
