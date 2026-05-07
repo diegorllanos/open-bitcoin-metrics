@@ -30,7 +30,7 @@ Instead of repeating the same expensive blockchain scan for each metric, `obm_sp
 
 ## What the indexer stores
 
-The indexer maintains four main groups of tables:
+The indexer maintains four tables:
 
 1. a live outpoint table;
 2. daily aggregate tables;
@@ -72,8 +72,7 @@ The main aggregate table is:
 ```text
 daily_aggregates
 ```
-
-It contains one row per UTC date with activity observed by the indexer. Dates with no indexed activity may be absent. Export scripts decide whether absent dates should be exported as zero or as missing, depending on the metric.
+It contains one row per UTC date for which at least one processed block contributes aggregate information. Dates with no blocks assigned under the UTC block-timestamp convention may be absent.
 
 The table includes the following fields:
 
@@ -189,8 +188,11 @@ The indexer stores enough information to export several OBM series.
 | `obm_fees_btc_daily` | `fees_sats / 100000000` |
 | `obm_issuance_btc_daily` | `issuance_sats / 100000000` |
 | `obm_miner_revenue_btc_daily` | `coinbase_output_sats / 100000000` |
-| `obm_bincdd365d_btc_daily` | `spent_value_365d_sats / 100000000` |
+| `obm_bincdd365d_btc_daily` | `spent_value_365d_sats / 100000000`; value of spent outputs whose age is at least 365 days |
 | `obm_spent_output_count_daily` | `spent_output_count` |
+
+Note: The `obm_bincdd365d_btc_daily` series is a binary-threshold spent-value metric. It counts the BTC value of 
+outputs spent after at least 365 days of inactivity. It is not measured in BTC-days.
 
 ### Derived from exported series or aggregate columns
 
@@ -311,30 +313,30 @@ Because Bitcoin block timestamps are not strictly monotonic in block height, the
 ### First historical build
 
 ```bash
-python3 obm_spent_output_indexer.py \\
-  --end_date 2024-01-31 \\
-  --state_db cache/obm_spent_output_indexer.sqlite \\
-  --reset_state_db \\
-  --commit_every 10000 \\
+python3 obm_spent_output_indexer.py \
+  --end_date 2024-01-31 \
+  --state_db cache/obm_spent_output_indexer.sqlite \
+  --reset_state_db \
+  --commit_every 10000 \
   --progress_every 1000
 ```
 
 ### Incremental update
 
 ```bash
-python3 obm_spent_output_indexer.py \\
-  --end_date 2024-02-01 \\
-  --state_db cache/obm_spent_output_indexer.sqlite \\
-  --commit_every 1000 \\
+python3 obm_spent_output_indexer.py \
+  --end_date 2024-02-01 \
+  --state_db cache/obm_spent_output_indexer.sqlite \
+  --commit_every 1000 \
   --progress_every 1000
 ```
 
 ### Daily automated update
 
 ```bash
-python3 obm_spent_output_indexer.py \\
-  --end_date "$(date -u -d yesterday +\\%F)" \\
-  --state_db cache/obm_spent_output_indexer.sqlite \\
+python3 obm_spent_output_indexer.py \
+  --end_date "$(date -u -d yesterday +\%F)" \
+  --state_db cache/obm_spent_output_indexer.sqlite \
   --min_confirmations 100
 ```
 
@@ -401,7 +403,9 @@ or implement a controlled rollback procedure before continuing.
 
 ## Missing dates
 
-The indexer may not create a row in `daily_aggregates` for dates with no indexed activity. This is especially relevant during the earliest days of Bitcoin.
+The indexer may not create a row in `daily_aggregates` for dates with no blocks assigned under the 
+UTC block-timestamp convention. This is especially relevant during the earliest days of Bitcoin. Dates 
+with coinbase-only blocks should still receive aggregate rows because coinbase output and issuance are recorded.
 
 Metric exporters are responsible for applying the correct convention:
 
@@ -479,8 +483,8 @@ Recommended checks include:
 
 - verify that `last_processed_height` increases monotonically;
 - verify that `last_processed_hash` matches Bitcoin Core at the same height;
-- inspect `duplicate_outpoints_overwritten`;
-- inspect `negative_age_outputs_floored`;
+- inspect `duplicate_outpoints_overwritten`, if present;
+- inspect `negative_age_outputs_floored`, if present;
 - compare `coinbase_output_sats` with `issuance_sats + fees_sats`;
 - compare exported `obm_fees_btc_daily` with `obm_miner_revenue_btc_daily - obm_issuance_btc_daily`;
 - compare selected exported series with independent public data providers as diagnostics.

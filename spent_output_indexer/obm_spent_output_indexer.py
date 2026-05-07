@@ -669,67 +669,6 @@ def add_to_daily_aggregates(
         ),
     )
 
-
-def add_to_daily_age_band(
-    conn: sqlite3.Connection,
-    block_date: date,
-    age_band: str,
-    spent_value_sats: int,
-    cdd_value_sats_days: Decimal,
-    spent_output_count: int,
-) -> None:
-    date_str = block_date.isoformat()
-
-    conn.execute(
-        """
-        INSERT INTO daily_age_band_aggregates
-        (date, age_band, spent_value_sats, cdd_sats_days, spent_output_count)
-        VALUES (?, ?, ?, ?, ?)
-        ON CONFLICT(date, age_band) DO UPDATE SET
-            spent_value_sats =
-                CAST(daily_age_band_aggregates.spent_value_sats AS INTEGER)
-                + CAST(excluded.spent_value_sats AS INTEGER),
-            cdd_sats_days =
-                CAST(daily_age_band_aggregates.cdd_sats_days AS TEXT),
-            spent_output_count =
-                daily_age_band_aggregates.spent_output_count
-                + excluded.spent_output_count;
-        """,
-        (
-            date_str,
-            age_band,
-            str(spent_value_sats),
-            decimal_to_text(cdd_value_sats_days),
-            spent_output_count,
-        ),
-    )
-
-    # SQLite cannot safely add arbitrary Decimal text values inside SQL.
-    # Therefore, update cdd_sats_days in Python.
-    row = conn.execute(
-        """
-        SELECT cdd_sats_days
-        FROM daily_age_band_aggregates
-        WHERE date = ? AND age_band = ?;
-        """,
-        (date_str, age_band),
-    ).fetchone()
-
-    if row is None:
-        raise RuntimeError(
-            f"Could not read daily_age_band_aggregates for "
-            f"{date_str}, {age_band}."
-        )
-
-    # The INSERT above set cdd_sats_days to the incoming value when new,
-    # but left it unchanged when there was a conflict. Detect the conflict
-    # path by subtracting only for an existing row is awkward with SQLite.
-    # Simpler and clearer approach: read all old values before writing.
-    # This function is replaced below by add_age_band_accumulator() during
-    # block processing, so this function is not used.
-    raise RuntimeError("add_to_daily_age_band() should not be called directly.")
-
-
 def flush_age_band_accumulators(
     conn: sqlite3.Connection,
     block_date: date,
