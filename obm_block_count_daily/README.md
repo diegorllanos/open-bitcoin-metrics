@@ -119,6 +119,22 @@ python3 compute_obm_block_count_daily.py \
   --plot \
   --plot_output figures/obm_block_count_daily.png
 ```
+### Relevant optional parameters
+
+| Parameter | Meaning | Default |
+|---|---|---|
+| `--release_version` | Dataset release label written to the CSV file | `OBM v0.1.0` |
+| `--rpc_host` | Bitcoin Core RPC host | `127.0.0.1` |
+| `--rpc_port` | Bitcoin Core RPC port | `8332` |
+| `--rpc_user` | RPC username. If omitted, cookie authentication is used | none |
+| `--rpc_password` | RPC password. If omitted, cookie authentication is used | none |
+| `--datadir` | Bitcoin Core data directory used to locate `.cookie` | `~/.bitcoin` |
+| `--cookie_path` | Explicit path to the Bitcoin Core cookie file | none |
+| `--height_margin` | Extra blocks scanned before and after the approximate interval | `288` |
+| `--progress_every` | Print progress every N scanned blocks. Use 0 to disable | `1000` |
+| `--plot` | Generate a plot | disabled |
+| `--plot_output` | Output path for the plot | same path as CSV, with `.png` extension |
+
 ## Time needed for complete execution 
 
 For reference, the execution time consumed by this script, on an Intel(R) Core(TM) i5-7400 CPU 
