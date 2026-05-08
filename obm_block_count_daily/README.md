@@ -6,7 +6,8 @@ This repository provides the following time series of the **Open Bitcoin Metrics
 obm_block_count_daily
 ```
 
-The series reports the daily number of Bitcoin blocks confirmed on-chain, computed directly from a running Bitcoin Core full node.
+The series reports the daily number of Bitcoin blocks included in the locally verified Bitcoin main chain, computed 
+directly from a running Bitcoin Core full node.
 
 ## Metric summary
 
@@ -119,6 +120,8 @@ python3 compute_obm_block_count_daily.py \
   --plot \
   --plot_output figures/obm_block_count_daily.png
 ```
+Both `--start_date` and `--end_date` are interpreted as UTC dates and are included in the output.
+
 ### Relevant optional parameters
 
 | Parameter | Meaning | Default |

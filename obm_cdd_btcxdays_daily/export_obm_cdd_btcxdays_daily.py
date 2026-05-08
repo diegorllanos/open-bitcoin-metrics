@@ -23,6 +23,17 @@ Important convention:
     Bitcoin period correspond to days with no spent outputs and therefore no
     destroyed coin age.
 
+Indexer coverage assumption:
+    The OBM spent-output indexer is designed to be built from the Bitcoin
+    genesis block onward. Therefore, this exporter assumes that the state
+    database contains a complete historical pass from block height 0 through
+    the maximum processed height recorded in metadata.
+
+    Under this invariant, a missing row in daily_aggregates for a requested
+    date means zero CDD activity for that UTC date, not missing processing.
+    The exporter is not intended for truncated or partially initialized
+    indexer databases.
+
 Example:
 
     python3 export_obm_cdd_btcxdays_daily.py \

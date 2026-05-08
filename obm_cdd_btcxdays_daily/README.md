@@ -242,7 +242,9 @@ If a requested date has no row in `daily_aggregates`, the exporter writes:
 
 for that date.
 
-This convention is appropriate for CDD because an absent daily aggregate row means that no relevant spent-output aggregate was assigned to that UTC date in the indexer database. In the earliest days of Bitcoin, there may be UTC dates with no spent outputs and therefore no destroyed coin age.
+This convention is appropriate for CDD provided that the indexer database fully covers the requested interval. Under 
+that condition, an absent daily aggregate row means that no relevant spent-output aggregate was assigned to that 
+UTC date in the indexer database.
 
 This differs from ratio metrics. For example, dormancy is computed as:
 
@@ -266,6 +268,7 @@ The eight-decimal output convention is consistent with BTC-denominated OBM serie
 
 The following internal checks are performed or recommended:
 
+- verify that the indexer database was built from the Bitcoin genesis block onward, as assumed by OBM exporters;
 - verify that `--start_date` is not later than `--end_date`;
 - verify that the SQLite state database exists;
 - verify that the database metadata contain the expected `indexer_id`;
@@ -280,7 +283,7 @@ External comparisons should be interpreted cautiously because providers may diff
 
 ## Relationship with other OBM metrics
 
-This metric is closely related to:
+This metric is closely related to the following implemented or planned OBM metrics:
 
 ```text
 obm_spent_value_btc_daily
@@ -306,6 +309,14 @@ obm_cdd_per_supply_days_daily =
 ```
 
 which expresses destroyed coin age per unit of supply.
+
+## Indexer coverage assumption
+
+The OBM spent-output indexer is designed to be built from the Bitcoin genesis block onward. Therefore, the exporter assumes that the indexer database contains a complete historical pass from block height 0 through the maximum processed height recorded in the metadata.
+
+Under this invariant, a missing row in `daily_aggregates` for a requested date does not indicate an unprocessed date. It indicates that no spent-output aggregate was assigned to that UTC date under the indexer's timestamp convention. For `obm_cdd_btcxdays_daily`, such dates are therefore exported as zero.
+
+Users should not use this exporter with a partially initialized or truncated indexer database unless they first verify that the requested date interval is fully covered.
 
 ## Known limitations
 

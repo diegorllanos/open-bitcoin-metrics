@@ -2,7 +2,7 @@
 """
 compute_obm_cdd_per_supply_days_daily.py
 
-Generate the Open Bitcoin Metrics daily supply-adjusted Coin Days Destroyed series:
+Generate the Open Bitcoin Metrics daily Bitcoin Days Destroyed per Unit of Supply series:
 
     obm_cdd_per_supply_days_daily
 
@@ -16,9 +16,9 @@ and computes:
     cdd_supply_adjusted = cdd / supply
 
 where cdd is measured in BTC-days and supply is measured in BTC. The resulting
-unit is days. Intuitively, the metric expresses daily Coin Days Destroyed as a
-share of the outstanding BTC stock, yielding a supply-normalized age-destruction
-measure.
+unit is days. Intuitively, the metric expresses daily Bitcoin Days Destroyed
+per unit of outstanding BTC supply, yielding a supply-normalized
+age-destruction measure.
 
 Output schema:
 
@@ -144,8 +144,16 @@ def read_obm_csv(
                     f"Duplicate date found in {input_path}: {row_date.isoformat()}"
                 )
 
+            raw_value = row["value"].strip()
+
+            if raw_value == "":
+                raise ValueError(
+                    f"Missing numeric value in {input_path} at row {row_number}. "
+                    f"The input series {expected_series_id} must contain defined numeric values."
+                )
+            
             try:
-                value = Decimal(row["value"])
+                value = Decimal(raw_value)
             except Exception as exc:
                 raise ValueError(
                     f"Invalid numeric value in {input_path} at row {row_number}: "

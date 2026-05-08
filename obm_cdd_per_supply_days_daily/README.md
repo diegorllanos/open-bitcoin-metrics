@@ -1,8 +1,14 @@
-# `obm_cdd_per_supply_days_daily`
+# Open Bitcoin Metrics: Bitcoin Days Destroyed per Unit of Supply
+
+This repository provides the following derived time series of the **Open Bitcoin Metrics (OBM)** project:
+
+```text
+obm_cdd_per_supply_days_daily
+```
 
 ## Overview
 
-`obm_cdd_per_supply_days_daily` is a derived Open Bitcoin Metrics (OBM) daily series that reports Coin Days Destroyed (CDD) normalized by the outstanding Bitcoin supply.
+`obm_cdd_per_supply_days_daily` is a derived Open Bitcoin Metrics (OBM) daily series that reports Bitcoin Days Destroyed, also commonly referred to as Coin Days Destroyed (CDD), normalized by the outstanding Bitcoin supply.
 
 The metric expresses the amount of coin-age destroyed on a given day relative to the total BTC supply available on that day. Its unit is **days**.
 
@@ -83,7 +89,18 @@ The output fields are:
 | `value` | CDD per unit of supply, expressed in days. |
 | `unit` | Always `days`. |
 | `frequency` | Always `daily`. |
-| `release_version` | OBM release version inherited from the input files. |
+| `release_version` | OBM release version inherited from the input files, provided that 
+a single release version is used across both source files over the selected interval. |
+
+## Precision
+
+For dates with positive supply, the script writes the `value` field with twelve decimal places:
+
+```text
+value = obm_cdd_btcxdays_daily / obm_supply_btc_daily
+```
+Undefined values caused by zero supply are written as an empty value field. This is especially useful because this metric 
+is a small ratio-like quantity expressed in days, and eight decimals may be unnecessarily coarse for early periods.
 
 ## Undefined values
 
@@ -151,9 +168,15 @@ python3 compute_obm_cdd_per_supply_days_daily.py \
 
 ## Notes
 
-This metric is derived entirely from existing OBM series. It does not require a direct scan of the blockchain if `obm_cdd_btcxdays_daily` and `obm_supply_btc_daily` have already been generated.
+This metric is derived entirely from existing OBM series. It does not require a direct scan of the blockchain 
+if `obm_cdd_btcxdays_daily` and `obm_supply_btc_daily` have already been generated.
 
-The metric should be used as a supply-normalized version of daily CDD, not as a replacement for raw CDD. The two series answer related but different questions:
+The metric should be used as a supply-normalized version of daily CDD, not as a replacement for raw CDD. The two series 
+answer related but different questions:
 
 - `obm_cdd_btcxdays_daily` measures the absolute amount of coin-age destroyed on a day.
 - `obm_cdd_per_supply_days_daily` measures that destroyed coin-age relative to the outstanding Bitcoin supply.
+
+If this metric is later aggregated to monthly frequency, monthly values should not be computed mechanically as arithmetic averages 
+of daily ratios without explicit justification. A more interpretable monthly version is obtained by summing monthly CDD and dividing 
+by an appropriate monthly supply denominator, preferably end-of-month supply.
