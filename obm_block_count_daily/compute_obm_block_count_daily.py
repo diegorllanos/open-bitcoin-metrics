@@ -270,11 +270,11 @@ def compute_block_count_daily(
 
     tip_time = get_block_time(rpc, best_height)
     if end_ts > tip_time:
-    tip_date = timestamp_to_utc_date(tip_time)
-    raise ValueError(
-        f"The requested end_date is after the current chain tip date "
-        f"({tip_date.isoformat()}). The node cannot provide future observations."
-    )
+        tip_date = timestamp_to_utc_date(tip_time)
+        raise ValueError(
+            f"The requested end_date is after the current chain tip date "
+            f"({tip_date.isoformat()}). The node cannot provide future observations."
+        )
 
     if start_ts > tip_time:
         raise ValueError(
