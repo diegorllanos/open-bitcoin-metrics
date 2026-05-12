@@ -1,4 +1,4 @@
-# Open Bitcoin Metrics: Accumulated Bitcoin Issuance
+# Open Bitcoin Metrics: Bitcoin Supply
 
 This repository provides the following derived time series of the **Open Bitcoin Metrics (OBM)** project:
 
@@ -6,7 +6,8 @@ This repository provides the following derived time series of the **Open Bitcoin
 obm_supply_btc_daily
 ```
 
-The series reports accumulated Bitcoin supply, measured in BTC, from 2009-01-01. It is derived directly from the 
+The series reports Bitcoin supply, measured in BTC, computed as the cumulative sum of realized daily issuance 
+from `2009-01-01` through each reported date.  It is derived directly from the 
 OBM daily realized issuance series:
 
 ```text
@@ -104,6 +105,16 @@ date,series_id,value,unit,frequency,release_version
 2024-01-02,obm_supply_btc_daily,19587921.04497096,BTC,daily,OBM v0.1.0
 ```
 
+## Precision
+
+The script writes the `value` field with eight decimal places:
+
+```text
+value = cumulative sum of obm_issuance_btc_daily from 2009-01-01
+```
+
+This matches the BTC-denominated precision convention used by other OBM series.
+
 ### Columns
 
 | Column | Description |
@@ -198,7 +209,7 @@ It is important to remember that this metric:
 - is a derived series, not an independent full-node reconstruction;
 - depends entirely on the quality and completeness of `obm_issuance_btc_daily`;
 - resets its cumulative value at 2009-01-01.
-- Represents total cumulative Bitcoin supply, because the start date corresponds to the beginning of the issuance history;
+- represents total cumulative Bitcoin supply, because the start date corresponds to the beginning of the issuance history;
 - inherits the timestamp convention, issuance definition, and release version of the source daily issuance series;
 - may change if the underlying daily issuance series is revised in a later OBM release.
 
@@ -212,7 +223,7 @@ For now, please cite this repository as:
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
-Metric: Accumulated Bitcoin Issuance (obm_supply_btc_daily).
+Metric: Bitcoin Supply (obm_supply_btc_daily).
 GitHub repository, version OBM v0.1.0.
 https://github.com/diegorllanos/open-bitcoin-metrics/
 ```

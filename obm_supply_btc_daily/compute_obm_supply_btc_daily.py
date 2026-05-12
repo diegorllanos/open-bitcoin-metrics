@@ -114,8 +114,16 @@ def read_issuance_csv(input_path: Path) -> Dict[date, DailyIssuanceRow]:
             if row_date in rows:
                 raise ValueError(f"Duplicate date found in input CSV: {row_date}")
 
+            raw_value = row["value"].strip()
+            
+            if raw_value == "":
+                raise ValueError(
+                    f"Missing numeric value at row {row_number}. "
+                    f"The input series {INPUT_SERIES_ID} must contain defined numeric values."
+                )
+            
             try:
-                value = Decimal(row["value"])
+                value = Decimal(raw_value)
             except Exception as exc:
                 raise ValueError(
                     f"Invalid numeric value at row {row_number}: {row['value']}"
@@ -149,7 +157,11 @@ def compute_accumulated_issuance(
         if current not in issuance_rows:
             raise ValueError(f"Missing input observation for date: {current.isoformat()}")
 
-        running_total += issuance_rows[current].value
+        issuance = issuance_rows[current].value
+        if issuance < 0:
+            raise ValueError(f"Negative issuance value found for {current.isoformat()}.")
+        running_total += issuance
+
         output[current] = running_total
 
         current = date.fromordinal(current.toordinal() + 1)

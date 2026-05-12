@@ -3,7 +3,7 @@
 This repository provides the following derived time series of the **Open Bitcoin Metrics (OBM)** project:
 
 ```text
-obm_fee_share_miner_revenue_ratio_daily
+obm_fee_share_revenue_ratio_daily
 ```
 
 The series reports the share of BTC-denominated miner revenue accounted for by transaction fees. It is derived directly from two existing OBM series:
@@ -17,7 +17,7 @@ obm_issuance_btc_daily
 
 | Field | Value |
 |---|---|
-| Series identifier | `obm_fee_share_miner_revenue_ratio_daily` |
+| Series identifier | `obm_fee_share_revenue_ratio_daily` |
 | Display name | Fees as share of miner revenue |
 | Unit | `ratio` |
 | Frequency | `daily` |
@@ -74,14 +74,14 @@ OBM records such values as missing, using an empty `value` field in the CSV file
 
 ```csv
 date,series_id,value,unit,frequency,release_version
-2009-01-01,obm_fee_share_miner_revenue_ratio_daily,,ratio,daily,OBM v0.1.0
+2009-01-01,obm_fee_share_revenue_ratio_daily,,ratio,daily,OBM v0.1.0
 ```
 
 This convention is deliberate. A missing value is preferable to zero, because zero would mean that fees represented 0% of positive miner revenue. In zero-denominator cases, there is no miner revenue from which a share can be computed.
 
 ## Interpretation
 
-`obm_fee_share_miner_revenue_ratio_daily` measures the fraction of BTC-denominated miner compensation that comes from transaction fees rather than newly issued BTC.
+`obm_fee_share_revenue_ratio_daily` measures the fraction of BTC-denominated miner compensation that comes from transaction fees rather than newly issued BTC.
 
 This metric is useful for:
 
@@ -108,7 +108,7 @@ The source metric `obm_fees_btc_daily` reports the daily amount of BTC paid by u
 The fee-share ratio combines both series as follows:
 
 ```text
-obm_fee_share_miner_revenue_ratio_daily =
+obm_fee_share_revenue_ratio_daily =
     obm_fees_btc_daily /
     (obm_issuance_btc_daily + obm_fees_btc_daily)
 ```
@@ -123,7 +123,7 @@ obm_miner_revenue_btc_daily =
 Therefore, when `obm_miner_revenue_btc_daily` is also available, the following equivalent expression can be used as a validation check:
 
 ```text
-obm_fee_share_miner_revenue_ratio_daily =
+obm_fee_share_revenue_ratio_daily =
     obm_fees_btc_daily / obm_miner_revenue_btc_daily
 ```
 
@@ -141,16 +141,25 @@ Example:
 
 ```csv
 date,series_id,value,unit,frequency,release_version
-2024-01-01,obm_fee_share_miner_revenue_ratio_daily,0.007216384512,ratio,daily,OBM v0.1.0
-2024-01-02,obm_fee_share_miner_revenue_ratio_daily,0.008553291047,ratio,daily,OBM v0.1.0
+2024-01-01,obm_fee_share_revenue_ratio_daily,0.007216384512,ratio,daily,OBM v0.1.0
+2024-01-02,obm_fee_share_revenue_ratio_daily,0.008553291047,ratio,daily,OBM v0.1.0
 ```
+## Precision
+
+For dates with positive BTC-denominated miner revenue, the script writes the `value` 
+field with twelve decimal places:
+
+```text
+value = obm_fees_btc_daily / (obm_issuance_btc_daily + obm_fees_btc_daily)
+```
+Undefined values caused by `issuance + fees = 0` are written as an empty `value` field.
 
 ### Columns
 
 | Column | Description |
 |---|---|
 | `date` | UTC calendar date in `YYYY-MM-DD` format |
-| `series_id` | Stable OBM identifier: `obm_fee_share_miner_revenue_ratio_daily` |
+| `series_id` | Stable OBM identifier: `obm_fee_share_revenue_ratio_daily` |
 | `value` | Fees divided by issuance plus fees; empty when undefined |
 | `unit` | Measurement unit: `ratio` |
 | `frequency` | Observation frequency: `daily` |
@@ -180,25 +189,25 @@ Unlike `obm_fees_btc_daily` and `obm_issuance_btc_daily`, this script does not q
 Generate the CSV file:
 
 ```bash
-python3 compute_obm_fee_share_miner_revenue_ratio_daily.py \
+python3 compute_obm_fee_share_revenue_ratio_daily.py \
   data/daily/obm_issuance_btc_daily.csv \
   data/daily/obm_fees_btc_daily.csv \
   --start_date 2024-01-01 \
   --end_date 2024-01-31 \
-  --output data/daily/obm_fee_share_miner_revenue_ratio_daily.csv
+  --output data/daily/obm_fee_share_revenue_ratio_daily.csv
 ```
 
 Generate the CSV file and a plot:
 
 ```bash
-python3 compute_obm_fee_share_miner_revenue_ratio_daily.py \
+python3 compute_obm_fee_share_revenue_ratio_daily.py \
   data/daily/obm_issuance_btc_daily.csv \
   data/daily/obm_fees_btc_daily.csv \
   --start_date 2024-01-01 \
   --end_date 2024-01-31 \
-  --output data/daily/obm_fee_share_miner_revenue_ratio_daily.csv \
+  --output data/daily/obm_fee_share_revenue_ratio_daily.csv \
   --plot \
-  --plot_output figures/obm_fee_share_miner_revenue_ratio_daily.png
+  --plot_output figures/obm_fee_share_revenue_ratio_daily.png
 ```
 
 If `--start_date` and `--end_date` are omitted, the script uses the common overlapping date range covered by both input files.
@@ -251,6 +260,20 @@ A secondary validation identity, when miner revenue is available, is:
 ```text
 FeeShare_d = FeesBTC_d / MinerRevenueBTC_d
 ```
+## Aggregation to lower frequencies
+
+If this metric is aggregated to monthly frequency, monthly values should not be computed 
+mechanically as arithmetic averages of daily ratios without explicit justification. A more 
+interpretable monthly value is obtained by first summing monthly fees and monthly issuance 
+and then computing:
+
+```text
+FeeShare_m = FeesBTC_m / (Issuance_m + FeesBTC_m)
+```
+
+where `FeesBTC_m` and `Issuance_m` are the monthly sums of the daily source series. This preserves 
+the interpretation of the metric as the fee share of total BTC-denominated miner revenue over 
+the month.
 
 ## Known limitations
 
@@ -265,7 +288,7 @@ It is important to remember that this metric:
 - inherits the timestamp conventions, definitions, and release versions of the source series;
 - may change if either source series is revised in a later OBM release.
 
-Despite these limitations, `obm_fee_share_miner_revenue_ratio_daily` is a useful derived OBM series. It provides a transparent measure of the relative importance of transaction fees in miner compensation and supports research on Bitcoin's security budget, fee-market development, halving dynamics, and the long-run transition from subsidy-based to fee-supported miner revenue.
+Despite these limitations, `obm_fee_share_revenue_ratio_daily` is a useful derived OBM series. It provides a transparent measure of the relative importance of transaction fees in miner compensation and supports research on Bitcoin's security budget, fee-market development, halving dynamics, and the long-run transition from subsidy-based to fee-supported miner revenue.
 
 ## Suggested citation
 
@@ -275,7 +298,7 @@ For now, please cite this repository as:
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
-Metric: Fees as Share of Miner Revenue (obm_fee_share_miner_revenue_ratio_daily).
+Metric: Fees as Share of Miner Revenue (obm_fee_share_revenue_ratio_daily).
 GitHub repository, version OBM v0.1.0.
 https://github.com/diegorllanos/open-bitcoin-metrics/
 ```

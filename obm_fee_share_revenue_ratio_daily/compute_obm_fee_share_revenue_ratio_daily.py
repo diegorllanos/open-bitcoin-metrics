@@ -139,8 +139,16 @@ def read_obm_csv(
                     f"Duplicate date found in {input_path}: {row_date.isoformat()}"
                 )
 
+            raw_value = row["value"].strip()
+            
+            if raw_value == "":
+                raise ValueError(
+                    f"Missing numeric value in {input_path} at row {row_number}. "
+                    f"The input series {expected_series_id} must contain defined numeric values."
+                )
+            
             try:
-                value = Decimal(row["value"])
+                value = Decimal(raw_value)
             except Exception as exc:
                 raise ValueError(
                     f"Invalid numeric value in {input_path} at row {row_number}: "
