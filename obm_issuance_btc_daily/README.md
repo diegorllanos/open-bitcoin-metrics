@@ -125,6 +125,18 @@ where:
 
 The exporter does not query Bitcoin Core. It only reads the already generated indexer database and writes a standard OBM CSV file.
 
+## Indexer coverage assumption
+
+The OBM spent-output indexer is designed to be built from the Bitcoin genesis block onward. Therefore, this exporter assumes that the 
+indexer database contains a complete historical pass from block height 0 through the maximum processed height recorded in the metadata.
+
+Under this invariant, a missing row in `daily_aggregates` for a requested UTC date does not indicate an unprocessed date. It indicates 
+that no block-level aggregate activity was assigned to that date under the indexer's timestamp convention. For `obm_issuance_btc_daily`, 
+such dates are therefore exported as zero.
+
+Users should not use this exporter with a partially initialized or truncated indexer database unless they first verify that the 
+requested date interval is fully covered.
+
 ## Data format
 
 The CSV file follows the standard OBM schema:
@@ -140,6 +152,16 @@ date,series_id,value,unit,frequency,release_version
 2024-01-01,obm_issuance_btc_daily,918.75000000,BTC,daily,OBM v0.1.0
 2024-01-02,obm_issuance_btc_daily,881.25000000,BTC,daily,OBM v0.1.0
 ```
+
+## Precision
+
+The exporter writes the `value` field with eight decimal places:
+
+```text
+value = issuance_sats / 100000000
+```
+
+This matches the BTC-denominated precision convention used by other OBM series.
 
 ### Columns
 
@@ -242,7 +264,17 @@ This convention is appropriate for issuance because an absent aggregate row mean
 
 ## Validation
 
-The following internal checks are recommended:
+The exporter performs several structural checks, and additional validation checks are recommended:
+
+The exporter checks that:
+
+- the SQLite state database exists;
+- the database metadata contain the expected `indexer_id`;
+- the database contains processed-date metadata;
+- the `daily_aggregates` table is present;
+- `--end_date` is not later than the maximum date processed by the indexer.
+
+Additional validation checks include:
 
 - verify that every requested date appears exactly once in the output;
 - verify that output values are non-negative BTC amounts under normal issuance conditions;
@@ -268,6 +300,17 @@ obm_miner_revenue_btc_daily =
 ```
 
 up to exact decimal representation.
+
+## Aggregation to lower frequencies
+
+Because issuance is a flow variable, monthly issuance should be computed as the sum of the corresponding daily issuance values:
+
+```text
+Issuance_m = sum of Issuance_d over all days d in month m
+```
+
+It should not be computed as an average of daily issuance values unless the research question specifically requires 
+an average daily issuance rate.
 
 ## Known limitations
 
