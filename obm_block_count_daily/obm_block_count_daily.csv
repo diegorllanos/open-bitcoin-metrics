@@ -6340,3 +6340,4 @@ date,series_id,value,unit,frequency,release_version
 2026-05-10,obm_block_count_daily,150,blocks,daily,OBM v0.1.0
 2026-05-11,obm_block_count_daily,165,blocks,daily,OBM v0.1.0
 2026-05-12,obm_block_count_daily,134,blocks,daily,OBM v0.1.0
+2026-05-13,obm_block_count_daily,139,blocks,daily,OBM v0.1.0
