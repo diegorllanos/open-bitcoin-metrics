@@ -265,17 +265,39 @@ This preserves the standard Bitcoin monetary precision.
 
 ## Validation
 
-The following internal checks are performed or recommended:
+Validation is divided into two groups: checks performed directly by the exporter script, and additional checks that are advisable for release preparation or independent auditing.
 
-- verify that `--start_date` is not later than `--end_date`;
-- verify that the SQLite state database exists;
-- verify that the database metadata contain the expected `indexer_id`;
-- verify that the database contains processed-date metadata;
-- verify that `--end_date` is not later than the maximum date processed by the indexer;
-- verify that every requested date appears exactly once in the output;
-- check that all exported values are non-negative;
-- verify that `obm_cdd_365d_btc_daily <= obm_spent_value_btc_daily` for every date;
-- compare selected periods with independent long-term-holder spent-value or age-threshold metrics as diagnostics.
+### Checks performed by the exporter
+
+The exporter performs the following checks during execution:
+
+- verifies that `--start_date` is not later than `--end_date`;
+- verifies that the SQLite state database exists;
+- opens the SQLite database in read-only mode;
+- verifies that the database metadata contain the expected `indexer_id`;
+- verifies that the database contains the required processing metadata, including `last_processed_height`, `last_processed_date`, and `max_processed_date`;
+- verifies that the `daily_aggregates` table exists;
+- verifies that the requested `--end_date` is not later than the maximum date processed by the indexer;
+- iterates over every UTC date in the requested interval, ensuring that the output contains one row per calendar day;
+- reads `spent_value_365d_sats` from `daily_aggregates` when a row exists for the date;
+- writes zero when a requested date has no row in `daily_aggregates`;
+- converts satoshis to BTC by dividing by 100,000,000;
+- writes the output using the standard OBM schema.
+
+These checks ensure that the exporter is reading from the expected indexer database, that the requested interval is covered by the indexer, and that the generated CSV has the expected daily structure.
+
+### Recommended additional checks
+
+The following checks are not performed automatically by the exporter, but are recommended before publishing a release or using the series in empirical work:
+
+- verify that all exported values are non-negative;
+- verify that every requested date appears exactly once in the output CSV;
+- verify that `obm_cdd_365d_btc_daily <= obm_spent_value_btc_daily` for every date when both series are exported from the same indexer database and release version;
+- verify that the first non-zero observations occur only after outputs can plausibly have reached the 365-day age threshold;
+- inspect unusually large daily spikes and confirm that they correspond to large old-output movements;
+- compare selected periods with independent long-term-holder spent-value, old-coin movement, or age-threshold metrics as diagnostics;
+- check that the `release_version` field is consistent with the indexer metadata and with other OBM series generated from the same release;
+- document any differences observed when comparing this metric with external providers.
 
 A useful internal consistency relation is:
 
@@ -286,6 +308,7 @@ A useful internal consistency relation is:
 for every UTC date, provided that both series are exported from the same indexer database and release version.
 
 External comparisons should be interpreted cautiously because providers may differ in timestamp convention, output-age thresholding, entity adjustment, change-output treatment, transfer-value definition, and historical edge-case handling.
+
 
 ## Relationship with other OBM metrics
 
