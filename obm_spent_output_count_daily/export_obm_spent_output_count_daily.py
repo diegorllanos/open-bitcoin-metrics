@@ -44,7 +44,7 @@ from typing import Dict, List, Optional
 
 
 SERIES_ID = "obm_spent_output_count_daily"
-UNIT = "outputs"
+UNIT = "count"
 FREQUENCY = "daily"
 DEFAULT_RELEASE_VERSION = "OBM v0.1.0"
 
