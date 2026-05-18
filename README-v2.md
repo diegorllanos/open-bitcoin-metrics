@@ -30,10 +30,32 @@ querying the Bitcoin blockchain. See the README.md file associated to each metri
 
 ## Available metrics so far
 
-| Series identifier and display name | Description | Frequency | Unit | Type |
-|---|---|---|---|---|
-| `obm_block_count_daily`: Daily Bitcoin block count | Daily number of Bitcoin blocks confirmed on-chain | Daily | Blocks | Primary |
-| `obm_block_weight_wu_daily`: Daily block weight in weight units | Total daily block weight of all blocks assigned to each UTC date | Daily | WU | Primary |
+| Series identifier | Display name | Description | Frequency | Unit | Type |
+|---|---|---|---|---|---|
+| `obm_block_count_daily` | Daily Bitcoin block count | Daily number of Bitcoin blocks confirmed on-chain | Daily | Blocks | Primary |
+| `obm_block_weight_wu_daily` | Daily block weight in weight units | Total daily block weight of all blocks assigned to each UTC date | Daily | WU | Primary |
+| `obm_cdd_age_band_btcxdays_daily` | Bitcoin Days Destroyed by age band | Daily Bitcoin Days Destroyed decomposed by spent-output age band | Daily | BTC-days | Primary |
+| `obm_cdd_btcxdays_daily` | Bitcoin Days Destroyed | Daily Bitcoin Days Destroyed from spent outputs | Daily | BTC-days | Primary |
+| `obm_cdd_per_supply_days_daily` | Bitcoin Days Destroyed per unit of supply | Supply-adjusted Bitcoin Days Destroyed | Daily | Days | Derived |
+| `obm_difficulty_eod_daily` | End-of-day Bitcoin mining difficulty | Mining difficulty of the last block assigned to each UTC date | Daily | Difficulty | Primary |
+| `obm_dormancy_days_daily` | Daily dormancy | Value-weighted average age of outputs spent each day | Daily | Days | Primary |
+| `obm_est7d_hashrate_ehs_daily` | Estimated 7-day network hashrate | Estimated network hashrate using a trailing 7-day rolling window | Daily | EH/s | Primary |
+| `obm_fee_share_revenue_ratio_daily` | Fees as share of miner revenue | Daily transaction fees divided by miner revenue | Daily | Ratio | Derived |
+| `obm_fees_btc_daily` | Daily transaction fees in BTC | Total daily transaction fees confirmed on-chain | Daily | BTC | Primary |
+| `obm_issuance_btc_daily` | Daily Bitcoin issuance | Realized daily Bitcoin issuance in BTC | Daily | BTC | Primary |
+| `obm_liveliness_ratio_daily` | Daily liveliness ratio | Cumulative coin-days destroyed relative to cumulative coin-days created | Daily | Ratio | Derived |
+| `obm_miner_revenue_btc_daily` | Daily miner revenue in BTC | Daily miner revenue from coinbase outputs, including issuance and fees | Daily | BTC | Primary |
+| `obm_raw_output_value_btc_daily` | Daily raw output value in BTC | Total BTC value of non-coinbase transaction outputs | Daily | BTC | Primary |
+| `obm_spent_output_count_daily` | Daily spent output count | Number of previous outputs spent by non-coinbase transaction inputs | Daily | Outputs | Primary |
+| `obm_spent_value_age_band_btc_daily` | Spent output value by age band in BTC | Daily spent output value decomposed by spent-output age band | Daily | BTC | Primary |
+| `obm_spent_value_btc_daily` | Daily spent output value in BTC | Total BTC value of outputs spent each day | Daily | BTC | Primary |
+| `obm_spent_value_ge155d_btc_daily` | Spent output value aged at least 155 days | Daily BTC value of spent outputs aged at least 155 days | Daily | BTC | Primary |
+| `obm_spent_value_ge365d_btc_daily` | Spent output value aged at least 365 days | Daily BTC value of spent outputs aged at least 365 days | Daily | BTC | Primary |
+| `obm_spent_value_lt155d_btc_daily` | Spent output value younger than 155 days | Daily BTC value of spent outputs aged less than 155 days | Daily | BTC | Derived |
+| `obm_supply_btc_daily` | Bitcoin supply | End-of-day accumulated Bitcoin supply since genesis | Daily | BTC | Derived |
+| `obm_tx_count_daily` | Daily Bitcoin transaction count | Daily number of Bitcoin transactions confirmed on-chain | Daily | Transactions | Primary |
+| `obm_utxo_eod_count_daily` | End-of-day UTXO count | Number of spendable UTXOs after the last block assigned to each UTC date | Daily | Outputs | Primary |
+
 ## Future metrics
 
 Future metrics planned for inclusion include:
