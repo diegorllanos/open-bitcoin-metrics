@@ -30,7 +30,7 @@ These metrics have been calculated using one out of three different methods:
 - "Exported" metrics rely on a database built by preprocessing the entire blockchain. This task is carried out by the 
 "OBM spent output indexer" script, that is also offered as part of this project. An example of such metric is 
 ``obm_cdd_btcxdays_daily``. See the README.md file associated to each metric in its corresponding directory for more details.
-- "Derived" metrics are calculated using primary metrics and without querying the Bitcoin blockchain. 
+- "Derived" metrics are calculated using primary and/or exported metrics and without querying the Bitcoin blockchain. 
 
 
 ## Available metrics so far
@@ -160,8 +160,8 @@ open-bitcoin-metrics/
        LICENSE
     tools/
        auxiliar-scripts/
-          plot_OBM.py
           plot_obm_cdd_age_band_btcxdays_daily.py
+          plot_obm_csv.py
           plot_obm_spent_value_age_band_btc_daily.py
           README.md
        spent_output_indexer/
