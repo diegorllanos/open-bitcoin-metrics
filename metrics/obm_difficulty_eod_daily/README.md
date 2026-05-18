@@ -6,7 +6,9 @@ This repository provides the following time series of the **Open Bitcoin Metrics
 obm_difficulty_eod_daily
 ```
 
-The series reports the Bitcoin mining difficulty of the last block assigned to each UTC calendar day.
+The series reports the Bitcoin mining difficulty of the last block assigned to each UTC calendar day. The unit field 
+is recorded as difficulty. Unlike other OBM metrics, the unit is not repeated in the series identifier because 
+"difficulty" is itself the named Bitcoin protocol state variable being measured.
 
 The computation script is:
 
