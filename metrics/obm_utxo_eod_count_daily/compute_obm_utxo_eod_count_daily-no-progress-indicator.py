@@ -75,7 +75,6 @@ FREQUENCY = "daily"
 DEFAULT_RELEASE_VERSION = "OBM v0.1.0"
 MISSING_VALUE = "NaN"
 CANONICAL_GENESIS_START_DATE = date(2009, 1, 3)
-PROGRESS_EVERY_BLOCKS = 1000
 
 
 def parse_utc_date(value: str) -> date:
@@ -385,16 +384,6 @@ def compute_utxo_eod_count(
             block = client.get_block(block_hash, verbosity=2)
 
             scanned_blocks += 1
-
-            if verbose and scanned_blocks % PROGRESS_EVERY_BLOCKS == 0:
-                total_to_scan = scan_end_height - scan_start_height + 1
-                percent = (scanned_blocks / total_to_scan) * 100 if total_to_scan > 0 else 100.0
-                print(
-                    f"Progress: scanned {scanned_blocks:,}/{total_to_scan:,} blocks "
-                    f"({percent:.2f}%). Current height: {height:,}. "
-                    f"Current UTXO count: {utxo_count:,}.",
-                    file=sys.stderr,
-                )
 
             block_time = int(block["time"])
             block_date = utc_date_from_timestamp(block_time)
