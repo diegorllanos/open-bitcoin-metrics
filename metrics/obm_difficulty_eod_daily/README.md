@@ -74,6 +74,9 @@ If no block is assigned to date `d`, the value is undefined and is written as:
 NaN
 ```
 
+The standard OBM daily calendar starts on `2009-01-01`; release exports should not use 
+earlier `--start_date` values.
+
 ## Why end-of-day difficulty?
 
 Difficulty is a protocol state variable, not a daily flow. It should not be summed across blocks or across days.
@@ -181,6 +184,8 @@ python3 compute_obm_difficulty_eod_daily.py \
   --plot_output figures/obm_difficulty_eod_daily.png
 ```
 
+When plotting is requested, `NaN` observations are skipped. If the selected interval contains no defined difficulty observations, the plotting step fails because there is no defined series to display.
+
 Generate the CSV file using explicit RPC credentials:
 
 ```bash
@@ -279,15 +284,15 @@ date,series_id,value,unit,frequency,release_version
 
 ## Missing-date convention
 
-Difficulty is a state variable, but this series is defined as the difficulty of the last block assigned to each UTC date. Therefore, if no block is assigned to a selected UTC date, there is no within-date last block.
-
-In that case, the script writes:
+Difficulty is a state variable, but this series is defined as the difficulty of the last block assigned to each UTC date.  If the selected UTC date lies within the historical interval covered by the local node and no block is assigned to that date, the script writes:
 
 ```text
 NaN
 ```
 
-This is preferable to zero because zero would be economically and technically misleading. A missing value means that the end-of-day observation is undefined under the selected block-timestamp convention.
+This is preferable to zero because zero would be economically and technically misleading. Dates beyond the current chain tip should not be exported as NaN, because they are unavailable future observations rather than historical no-block dates.
+
+A missing value means that the end-of-day observation is undefined under the selected block-timestamp convention.
 
 Users who require a fully filled state series may forward-fill `obm_difficulty_eod_daily` after export, but such forward-filling is a downstream transformation and is not performed by this script.
 
@@ -362,6 +367,10 @@ obm_fees_btc_daily
 The relationship with block count is particularly important. If `obm_block_count_daily` is positive for date `d`, then `obm_difficulty_eod_daily` should normally be defined for that date. If block count is zero, the end-of-day difficulty observation is undefined under the OBM convention and is written as `NaN`.
 
 Difficulty can also be used as an input for estimated hashrate metrics. However, hashrate is not directly observed on-chain and requires an estimation window and additional assumptions. Therefore, `obm_difficulty_eod_daily` should be treated as a protocol state variable, not as a direct hashrate measure.
+
+## Aggregation to lower frequencies
+
+Because difficulty is a protocol state variable, a monthly version should normally use an end-of-period convention, such as the difficulty of the highest-height block assigned to the last UTC date of the month with an assigned block. A monthly average can be constructed for specific empirical purposes, but it should be documented as a separate convention.
 
 ## Known limitations
 

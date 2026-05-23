@@ -55,7 +55,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 getcontext().prec = 50
 
-
+OBM_START_DATE = date(2009, 1, 1)
 SERIES_ID = "obm_difficulty_eod_daily"
 UNIT = "difficulty"
 FREQUENCY = "daily"
@@ -66,6 +66,10 @@ MISSING_VALUE = "NaN"
 # ---------------------------------------------------------------------
 # Date helpers
 # ---------------------------------------------------------------------
+
+def tip_utc_date(client: BitcoinRpcClient, tip_height: int) -> date:
+    tip_time = get_block_time(client, tip_height)
+    return utc_date_from_timestamp(tip_time)
 
 def parse_utc_date(value: str) -> date:
     try:
@@ -280,9 +284,9 @@ def parse_difficulty(value: Any, *, height: int) -> Decimal:
             f"Invalid difficulty value at height {height}: {value!r}"
         ) from exc
 
-    if difficulty < 0:
+    if difficulty <= 0:
         raise RuntimeError(
-            f"Negative difficulty value at height {height}: {difficulty}"
+            f"Non-positive difficulty value at height {height}: {difficulty}"
         )
 
     return difficulty
@@ -298,6 +302,15 @@ def compute_difficulty_eod(
 ) -> Tuple[Dict[date, Optional[Decimal]], Dict[date, Optional[int]], Dict[str, int]]:
     info = client.get_blockchain_info()
     tip_height = int(info["blocks"])
+
+    tip_date = tip_utc_date(client, tip_height)
+
+    if end_date > tip_date:
+        raise ValueError(
+            f"--end_date {end_date.isoformat()} is after the current chain-tip "
+            f"UTC date ({tip_date.isoformat()}). The node cannot provide future "
+            "observations."
+        )
 
     start_ts = utc_timestamp(utc_datetime_from_date_start(start_date))
     end_ts = utc_timestamp(utc_datetime_from_date_end(end_date))
@@ -617,6 +630,12 @@ def main() -> int:
     try:
         if args.start_date > args.end_date:
             raise ValueError("--start_date must be earlier than or equal to --end_date.")
+
+        if args.start_date < OBM_START_DATE:
+            raise ValueError(
+                f"--start_date must be on or after {OBM_START_DATE.isoformat()} "
+                "for OBM daily difficulty exports."
+            )
 
         if args.height_margin < 0:
             raise ValueError("--height_margin must be non-negative.")

@@ -81,6 +81,8 @@ days
 
 because BTC-days divided by BTC leaves days.
 
+The standard OBM daily calendar starts on `2009-01-01`; release exports should not use earlier `--start_date` values.
+
 ## Interpretation
 
 `obm_dormancy_days_daily` reports the average age of spent coins, weighted by the BTC value of the spent outputs.
@@ -274,6 +276,14 @@ This exporter does not require:
 
 The heavy blockchain processing is performed by the spent-output indexer before this exporter is run.
 
+## Indexer coverage assumption
+
+The OBM spent-output indexer is designed to be built from the Bitcoin genesis block onward. Therefore, this exporter assumes that the indexer database contains a complete historical pass from block height 0 through the maximum processed height recorded in the metadata.
+
+Under this invariant, a missing row in `daily_aggregates` for a requested UTC date does not indicate an unprocessed date. It indicates that no spent-output aggregate was assigned to that date under the indexer's timestamp convention. For `obm_dormancy_days_daily`, such dates are exported as `NaN`, because the spent-value denominator is zero and the ratio is undefined.
+
+Users should not use this exporter with a partially initialized or truncated indexer database unless they first verify that the requested date interval is fully covered.
+
 ## Missing-value convention
 
 Dormancy is a ratio:
@@ -310,6 +320,16 @@ value = cdd_sats_days / spent_value_sats
 
 This is a ratio measured in days. The twelve-decimal output convention preserves more precision than is usually needed for interpretation, while keeping the CSV representation stable and reproducible.
 
+## Aggregation to lower frequencies
+
+Because dormancy is a ratio, monthly dormancy should not be computed mechanically as an arithmetic average of daily dormancy values without explicit justification. A more interpretable monthly version is obtained by first summing monthly CDD and monthly spent value, and then computing:
+
+```text
+DormancyDays_m = CDD_m / SpentValueBTC_m
+```
+
+for months with positive spent value. This preserves the interpretation of dormancy as the value-weighted average age of spent coins over the month.
+
 ## Validation
 
 The following internal checks are performed or recommended:
@@ -335,7 +355,6 @@ This metric is closely related to:
 obm_cdd_btcxdays_daily
 obm_spent_value_btc_daily
 obm_cdd_per_supply_days_daily
-obm_bincdd365d_btc_daily
 ```
 
 The main identity is:

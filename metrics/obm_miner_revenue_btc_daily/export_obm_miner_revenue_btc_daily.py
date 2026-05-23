@@ -51,7 +51,7 @@ from decimal import Decimal, getcontext
 from pathlib import Path
 from typing import Dict, List, Optional
 
-
+OBM_START_DATE = date(2009, 1, 1)
 SERIES_ID = "obm_miner_revenue_btc_daily"
 UNIT = "BTC"
 FREQUENCY = "daily"
@@ -213,6 +213,13 @@ def read_miner_revenue_btc(
             output[d] = Decimal("0")
         else:
             coinbase_output_sats = Decimal(str(row[0]))
+
+            if coinbase_output_sats < 0:
+               raise ValueError(
+                   f"Negative coinbase_output_sats found for {d.isoformat()}: "
+                   f"{coinbase_output_sats}"
+               )
+
             output[d] = coinbase_output_sats / SATOSHIS_PER_BTC
 
     return output
@@ -377,6 +384,12 @@ def main() -> int:
     try:
         if args.start_date > args.end_date:
             raise ValueError("--start_date must be earlier than or equal to --end_date.")
+
+        if args.start_date < OBM_START_DATE:
+            raise ValueError(
+                f"--start_date must be on or after {OBM_START_DATE.isoformat()} "
+                "for OBM daily miner-revenue exports."
+            )
 
         state_db_path = Path(args.state_db)
         conn = connect_state_db(state_db_path)

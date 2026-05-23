@@ -52,7 +52,7 @@ from decimal import Decimal, getcontext
 from pathlib import Path
 from typing import Dict, List, Optional
 
-
+OBM_START_DATE = date(2009, 1, 1)
 SERIES_ID = "obm_dormancy_days_daily"
 UNIT = "days"
 FREQUENCY = "daily"
@@ -213,6 +213,16 @@ def read_dormancy_days(
 
         cdd_sats_days = Decimal(str(row[0]))
         spent_value_sats = Decimal(str(row[1]))
+
+        if cdd_sats_days < 0:
+            raise ValueError(
+                f"Negative cdd_sats_days found for {d.isoformat()}: {cdd_sats_days}"
+            )
+
+        if spent_value_sats < 0:
+            raise ValueError(
+                f"Negative spent_value_sats found for {d.isoformat()}: {spent_value_sats}"
+            )
 
         if spent_value_sats == 0:
             output[d] = None
@@ -389,6 +399,12 @@ def main() -> int:
     try:
         if args.start_date > args.end_date:
             raise ValueError("--start_date must be earlier than or equal to --end_date.")
+
+        if args.start_date < OBM_START_DATE:
+            raise ValueError(
+                f"--start_date must be on or after {OBM_START_DATE.isoformat()} "
+                "for OBM daily dormancy exports."
+            )
 
         state_db_path = Path(args.state_db)
         conn = connect_state_db(state_db_path)

@@ -264,13 +264,13 @@ date,series_id,value,unit,frequency,release_version
 
 The script initializes every requested UTC date to zero before scanning blocks.
 
-If no block is assigned to a selected UTC date, the script writes:
+If the requested date is within the historical interval covered by the local node and no block is assigned to that UTC date, the script writes:
 
 ```text
 0
 ```
 
-This convention is appropriate because the metric is a daily block-level aggregate.
+This convention is appropriate because the metric is a daily block-level aggregate. Dates beyond the current chain tip should not be exported as zero, because they are unavailable observations rather than historical zero-block-weight days.
 
 ## Precision
 
@@ -320,7 +320,7 @@ The following checks are not performed automatically by the script, but are reco
   obm_block_weight_wu_daily / obm_block_count_daily
   ```
   for dates where block count is positive;
-- verify that average block weight does not exceed the consensus block weight limit for ordinary post-SegWit blocks;
+- compute average block weight per counted block and verify that it remains consistent with the per-block consensus weight limit in post-SegWit periods;
 - inspect unusually large or unusually small daily values and compare them with daily block count;
 - compare selected periods with independent blockchain explorers or data providers as diagnostics;
 - document any differences observed when comparing this series with external block-size or block-weight metrics.

@@ -43,7 +43,7 @@ from datetime import date, datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-
+OBM_START_DATE = date(2009, 1, 1)
 SERIES_ID = "obm_block_weight_wu_daily"
 UNIT = "WU"
 FREQUENCY = "daily"
@@ -53,6 +53,11 @@ DEFAULT_RELEASE_VERSION = "OBM v0.1.0"
 # ---------------------------------------------------------------------
 # Date helpers
 # ---------------------------------------------------------------------
+
+def tip_utc_date(client: BitcoinRpcClient, tip_height: int) -> date:
+    tip_time = get_block_time(client, tip_height)
+    return utc_date_from_timestamp(tip_time)
+
 
 def parse_utc_date(value: str) -> date:
     try:
@@ -263,6 +268,15 @@ def compute_block_weight(
 ) -> Tuple[Dict[date, int], Dict[str, int]]:
     info = client.get_blockchain_info()
     tip_height = int(info["blocks"])
+
+    tip_date = tip_utc_date(client, tip_height)
+
+    if end_date > tip_date:
+        raise ValueError(
+            f"--end_date {end_date.isoformat()} is after the current chain-tip "
+            f"UTC date ({tip_date.isoformat()}). The node cannot provide future "
+            "observations."
+        )
 
     start_ts = utc_timestamp(utc_datetime_from_date_start(start_date))
     end_ts = utc_timestamp(utc_datetime_from_date_end(end_date))
@@ -552,6 +566,12 @@ def main() -> int:
     try:
         if args.start_date > args.end_date:
             raise ValueError("--start_date must be earlier than or equal to --end_date.")
+
+        if args.start_date < OBM_START_DATE:
+            raise ValueError(
+                f"--start_date must be on or after {OBM_START_DATE.isoformat()} "
+                "for OBM daily block-weight exports."
+            )
 
         if args.height_margin < 0:
             raise ValueError("--height_margin must be non-negative.")

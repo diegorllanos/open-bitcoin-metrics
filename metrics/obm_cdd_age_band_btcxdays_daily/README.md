@@ -77,6 +77,9 @@ BTC-days
 
 This metric is not a scalar daily series. It is a wide daily age-band table: each row corresponds to one UTC date, and each age-band column contains the CDD contributed by outputs assigned to that band.
 
+The standard OBM daily calendar starts on `2009-01-01`; release exports should not use 
+earlier `--start_date` values.
+
 ## Age-band convention
 
 The exporter uses the following fixed age bands:
@@ -109,7 +112,6 @@ This metric is useful for:
 - studying dormant-supply activation;
 - comparing spent-value age composition with CDD age composition;
 - validating aggregate `obm_cdd_btcxdays_daily`;
-- interpreting threshold metrics such as `obm_cdd_155d_btc_daily` and `obm_cdd_365d_btc_daily`;
 - constructing age-band shares of total daily CDD.
 
 The metric should not be interpreted as a spent-value metric. It multiplies spent value by output age and is therefore measured in BTC-days. A small amount of very old spent value can contribute more CDD than a large amount of recently active spent value.
@@ -320,6 +322,14 @@ Neither script requires:
 
 The heavy blockchain processing is performed by the spent-output indexer before this exporter is run.
 
+## Indexer coverage assumption
+
+The OBM spent-output indexer is designed to be built from the Bitcoin genesis block onward. Therefore, this exporter assumes that the indexer database contains a complete historical pass from block height 0 through the maximum processed height recorded in the metadata.
+
+Under this invariant, a missing date-band pair in `daily_age_band_aggregates` for a requested UTC date does not indicate an unprocessed date. It indicates that no CDD contribution was assigned to that age band and date under the indexer's timestamp and age-band conventions. Such date-band pairs are therefore exported as zero.
+
+Users should not use this exporter with a partially initialized or truncated indexer database unless they first verify that the requested date interval is fully covered.
+
 ## Missing-date and missing-band convention
 
 For each requested date, the exporter creates one complete row with all age-band columns.
@@ -354,7 +364,7 @@ The exporter performs the following checks during execution:
 
 - verifies that `--start_date` is not later than `--end_date`;
 - verifies that the SQLite state database exists;
-- opens the SQLite database in read-only mode;
+- opens the SQLite database and sets the connection to query-only mode;
 - verifies that the database metadata contain the expected `indexer_id`;
 - verifies that the database contains the required processing metadata, including `last_processed_height`, `last_processed_date`, and `max_processed_date`;
 - verifies that the `daily_age_band_aggregates` table exists;
@@ -421,8 +431,6 @@ obm_cdd_btcxdays_daily
 obm_spent_value_age_band_btc_daily
 obm_spent_value_btc_daily
 obm_dormancy_days_daily
-obm_cdd_155d_btc_daily
-obm_cdd_365d_btc_daily
 ```
 
 The primary relationship is:

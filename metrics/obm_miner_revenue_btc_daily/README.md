@@ -222,6 +222,14 @@ This exporter does not require:
 
 The heavy blockchain processing is performed by the spent-output indexer before this exporter is run.
 
+## Indexer coverage assumption
+
+The OBM spent-output indexer is designed to be built from the Bitcoin genesis block onward. Therefore, this exporter assumes that the indexer database contains a complete historical pass from block height 0 through the maximum processed height recorded in the metadata.
+
+Under this invariant, a missing row in `daily_aggregates` for a requested UTC date does not indicate an unprocessed date. It indicates that no block-level aggregate activity was assigned to that date under the indexer's timestamp convention. For `obm_miner_revenue_btc_daily`, such dates are therefore exported as zero.
+
+Users should not use this exporter with a partially initialized or truncated indexer database unless they first verify that the requested date interval is fully covered.
+
 ## Missing-date convention
 
 If a requested date has no row in `daily_aggregates`, the exporter writes:
@@ -303,6 +311,16 @@ obm_fee_share_revenue_ratio_daily =
 ```
 
 for dates where the denominator is positive.
+
+## Aggregation to lower frequencies
+
+Because miner revenue is a flow variable, monthly miner revenue should be computed as the sum of the corresponding daily values:
+
+```text
+MinerRevenueBTC_m = sum of MinerRevenueBTC_d over all days d in month m
+```
+
+It should not be computed as an average of daily miner revenue values unless the research question specifically concerns average daily miner revenue within the month.
 
 ## Known limitations
 
