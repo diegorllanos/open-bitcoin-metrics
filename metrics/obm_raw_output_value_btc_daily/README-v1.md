@@ -353,58 +353,27 @@ When BTC-denominated columns are used, the exporter relies on decimal arithmetic
 
 ## Validation
 
-Validation is divided into two groups: checks actually performed by the exporter script, and additional checks recommended for release preparation or independent auditing.
+The following internal checks are performed or recommended:
 
-### Checks performed by the script
-
-The exporter performs the following checks during execution:
-
-- verifies that `--start_date` is not later than `--end_date`;
-- verifies that the SQLite state database specified through `--state_db` exists;
-- verifies that the daily aggregate table exists when `--table` is supplied;
-- attempts to auto-detect the daily aggregate table when `--table` is omitted;
-- verifies that the date column exists when `--date_column` is supplied;
-- attempts to auto-detect the date column when `--date_column` is omitted;
-- verifies that the spent-value column exists when `--spent_value_column` is supplied;
-- verifies that the fees column exists when `--fees_column` is supplied;
-- attempts to auto-detect spent-value and fee columns when explicit column names are omitted;
-- prefers satoshi-denominated columns when `--value_mode auto` is used;
-- falls back to BTC-denominated columns in `auto` mode when satoshi-denominated columns are not found;
-- verifies that satoshi-denominated values are integers when `--value_mode sats` or an auto-detected satoshi mode is used;
-- verifies that numeric values can be parsed as valid decimals;
-- verifies that each returned date appears at most once;
-- computes `raw_output_value = spent_value - fees`;
-- rejects any date for which `raw_output_value` is negative;
-- detects requested dates missing from the aggregate table;
-- raises an error for missing dates unless `--missing_dates_as_zero` is supplied;
-- writes `0.00000000` for missing dates when `--missing_dates_as_zero` is supplied;
-- writes one output row per requested UTC date;
-- writes the output using the standard OBM schema;
-- optionally generates a plot when `--plot` is used.
-
-These checks ensure that the exporter uses a coherent table and column selection, applies the transaction-accounting identity consistently, and prevents negative raw-output values from being silently exported.
-
-### Recommended additional checks
-
-The following checks are not performed automatically by the script, but are recommended before publishing a release or using the series in empirical work:
-
-- verify that the indexer database was built from the Bitcoin genesis block onward, as assumed by OBM exporters;
-- verify that the requested interval is fully covered by the indexer database;
-- verify that the database metadata contain the expected `indexer_id`, if metadata are available;
-- verify that the database contains processed-date or processed-height metadata, if available;
-- verify that `--end_date` is not later than the maximum date processed by the indexer;
-- verify that every requested date appears exactly once in the output CSV;
+- verify that `--start_date` is not later than `--end_date`;
+- verify that the SQLite state database exists;
+- verify that the daily aggregate table exists or can be auto-detected;
+- verify that the date column exists or can be auto-detected;
+- verify that the spent-value and fee columns exist or can be auto-detected;
+- prefer satoshi-denominated columns when available;
+- verify that satoshi-denominated columns contain integer values;
+- verify that each returned date appears only once;
+- verify that `raw_output_value = spent_value - fees` is never negative;
+- verify that every requested date appears exactly once in the output;
 - check that all exported values are non-negative;
-- use `--missing_dates_as_zero` only after confirming that missing rows represent zero flow rather than incomplete indexer coverage;
+- use `--missing_dates_as_zero` only after verifying that the indexer database fully covers the requested interval;
 - compare selected dates with the direct block-scanning implementation as a diagnostic;
 - compare selected periods with independent public data providers as diagnostics;
 - verify consistency with the identity:
   ```text
   spent_value = raw_output_value + fees
   ```
-  up to formatting precision;
-- compare the exported series with `obm_spent_value_btc_daily` and `obm_fees_btc_daily` generated from the same indexer run;
-- inspect unusually large observations to distinguish genuine raw output activity from exchange reshuffling, wallet consolidation, batching, or other non-payment activity.
+  up to formatting precision.
 
 External comparisons should be interpreted cautiously because providers may differ in timestamp convention, coinbase exclusion, treatment of change outputs, entity-adjustment heuristics, and the exact definition of transaction volume.
 
