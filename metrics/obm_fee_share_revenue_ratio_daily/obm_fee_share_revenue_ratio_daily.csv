@@ -6355,4 +6355,8 @@ date,series_id,value,unit,frequency,release_version
 2026-05-25,obm_fee_share_revenue_ratio_daily,0.005355256247,ratio,daily,OBM v0.1.0
 2026-05-26,obm_fee_share_revenue_ratio_daily,0.007831130969,ratio,daily,OBM v0.1.0
 2026-05-27,obm_fee_share_revenue_ratio_daily,0.006804777994,ratio,daily,OBM v0.1.0
-2026-05-28,obm_fee_share_revenue_ratio_daily,0.010426230167,ratio,daily,OBM v0.1.0
+2026-05-28,obm_fee_share_revenue_ratio_daily,0.006846777891,ratio,daily,OBM v0.1.0
+2026-05-29,obm_fee_share_revenue_ratio_daily,0.008804750225,ratio,daily,OBM v0.1.0
+2026-05-30,obm_fee_share_revenue_ratio_daily,0.006710543745,ratio,daily,OBM v0.1.0
+2026-05-31,obm_fee_share_revenue_ratio_daily,0.006004702224,ratio,daily,OBM v0.1.0
+2026-06-01,obm_fee_share_revenue_ratio_daily,0.008420228856,ratio,daily,OBM v0.1.0

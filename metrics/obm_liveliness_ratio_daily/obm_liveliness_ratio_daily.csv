@@ -6353,4 +6353,8 @@ date,series_id,value,unit,frequency,release_version
 2026-05-25,obm_liveliness_ratio_daily,0.631232621964,ratio,daily,OBM v0.1.0
 2026-05-26,obm_liveliness_ratio_daily,0.631188364831,ratio,daily,OBM v0.1.0
 2026-05-27,obm_liveliness_ratio_daily,0.631134805177,ratio,daily,OBM v0.1.0
-2026-05-28,obm_liveliness_ratio_daily,0.631155650400,ratio,daily,OBM v0.1.0
+2026-05-28,obm_liveliness_ratio_daily,0.631155649186,ratio,daily,OBM v0.1.0
+2026-05-29,obm_liveliness_ratio_daily,0.631170347401,ratio,daily,OBM v0.1.0
+2026-05-30,obm_liveliness_ratio_daily,0.631094808633,ratio,daily,OBM v0.1.0
+2026-05-31,obm_liveliness_ratio_daily,0.630996956986,ratio,daily,OBM v0.1.0
+2026-06-01,obm_liveliness_ratio_daily,0.630959568521,ratio,daily,OBM v0.1.0
