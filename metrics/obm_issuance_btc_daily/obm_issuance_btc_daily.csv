@@ -6365,3 +6365,4 @@ date,series_id,value,unit,frequency,release_version
 2026-06-04,obm_issuance_btc_daily,443.75000000,BTC,daily,OBM v0.1.0
 2026-06-05,obm_issuance_btc_daily,421.87500000,BTC,daily,OBM v0.1.0
 2026-06-06,obm_issuance_btc_daily,381.25000000,BTC,daily,OBM v0.1.0
+2026-06-07,obm_issuance_btc_daily,365.62500000,BTC,daily,OBM v0.1.0
