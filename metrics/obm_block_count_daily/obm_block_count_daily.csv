@@ -6374,3 +6374,4 @@ date,series_id,value,unit,frequency,release_version
 2026-06-13,obm_block_count_daily,124,blocks,daily,OBM v0.1.0
 2026-06-14,obm_block_count_daily,146,blocks,daily,OBM v0.1.0
 2026-06-15,obm_block_count_daily,150,blocks,daily,OBM v0.1.0
+2026-06-16,obm_block_count_daily,162,blocks,daily,OBM v0.1.0
