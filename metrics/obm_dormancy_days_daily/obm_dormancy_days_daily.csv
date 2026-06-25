@@ -6378,3 +6378,4 @@ date,series_id,value,unit,frequency,release_version
 2026-06-17,obm_dormancy_days_daily,7.756878032238,days,daily,OBM v0.1.0
 2026-06-18,obm_dormancy_days_daily,7.380916035086,days,daily,OBM v0.1.0
 2026-06-19,obm_dormancy_days_daily,8.174687844554,days,daily,OBM v0.1.0
+2026-06-20,obm_dormancy_days_daily,3.037025236412,days,daily,OBM v0.1.0
