@@ -6381,3 +6381,4 @@ date,series_id,value,unit,frequency,release_version
 2026-06-20,obm_spent_output_count_daily,1129818,outputs,daily,OBM v0.1.0
 2026-06-21,obm_spent_output_count_daily,1027915,outputs,daily,OBM v0.1.0
 2026-06-22,obm_spent_output_count_daily,1169234,outputs,daily,OBM v0.1.0
+2026-06-23,obm_spent_output_count_daily,1298343,outputs,daily,OBM v0.1.0
