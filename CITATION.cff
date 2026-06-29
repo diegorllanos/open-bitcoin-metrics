@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use Open Bitcoin Metrics (OBM), please cite both the archived dataset release and the accompanying manuscript."
+title: "Open Bitcoin Metrics (OBM): Reproducible Full-Node Bitcoin On-Chain Time Series"
+version: "v0.1.0"
+type: dataset
+authors:
+  - family-names: "Llanos"
+    given-names: "Diego R."
+    affiliation: "University of Valladolid"
+    email: "diego.llanos@uva.es"
+repository-code: "https://github.com/diegorllanos/open-bitcoin-metrics"
+url: "https://github.com/diegorllanos/open-bitcoin-metrics"
+doi: "10.5281/zenodo.XXXXXXX"
+date-released: "2026-XX-XX"
+abstract: >-
+  Open Bitcoin Metrics (OBM) is a reproducible, full-node-derived dataset
+  and reference guide for Bitcoin on-chain time series designed for economic
+  and econometric research. The dataset provides documented daily series
+  covering block production, block-space usage, transaction counts, supply,
+  issuance, fees, miner revenue, mining difficulty, estimated hashrate,
+  Bitcoin Days Destroyed, dormancy, liveliness, UTXO counts, spent output
+  value, and related UTXO-age indicators. Metrics are reconstructed from a
+  locally maintained Bitcoin Core full node, a persistent spent-output indexer,
+  or deterministic transformations of previously generated OBM series.
+keywords:
+  - Bitcoin
+  - on-chain data
+  - time series
+  - Bitcoin full node
+  - reproducibility
+  - econometrics
+  - open data
+license: "CC-BY-4.0"
+preferred-citation:
+  type: article
+  title: "Open Bitcoin Metrics: Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for Economic Research"
+  authors:
+    - family-names: "Llanos"
+      given-names: "Diego R."
+      affiliation: "University of Valladolid"
+      email: "diego.llanos@uva.es"
+  year: 2026
+  url: "https://arxiv.org/abs/XXXX.XXXXX"
