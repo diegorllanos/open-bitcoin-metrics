@@ -6385,3 +6385,4 @@ date,series_id,value,unit,frequency,release_version
 2026-06-24,obm_tx_count_daily,749523,transactions,daily,OBM v0.1.0
 2026-06-25,obm_tx_count_daily,805731,transactions,daily,OBM v0.1.0
 2026-06-26,obm_tx_count_daily,712555,transactions,daily,OBM v0.1.0
+2026-06-27,obm_tx_count_daily,826483,transactions,daily,OBM v0.1.0
