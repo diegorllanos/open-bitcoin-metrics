@@ -1,5 +1,7 @@
 # Open Bitcoin Metrics (OBM)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21156871.svg)](https://doi.org/10.5281/zenodo.21156871)
+
 **Open Bitcoin Metrics (OBM)** is an open-data project that provides reproducible Bitcoin on-chain time series for economic, financial, and econometric research.
 
 The project aims to make specialized Bitcoin metrics easier to access, audit, cite, and reproduce. Each metric is accompanied by:
@@ -254,13 +256,12 @@ OBM metrics should be interpreted carefully.
 
 ## Suggested citation
 
-A formal citation will be added once the project receives a DOI.
-
-For now, please cite the repository as:
+Please cite the repository as:
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series 
 GitHub repository, version OBM v0.1.0.
+DOI: 10.5281/zenodo.21156871
 https://github.com/diegorllanos/open-bitcoin-metrics/
 ```
 

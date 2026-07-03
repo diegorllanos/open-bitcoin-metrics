@@ -10,8 +10,8 @@ authors:
     email: "diego.llanos@uva.es"
 repository-code: "https://github.com/diegorllanos/open-bitcoin-metrics"
 url: "https://github.com/diegorllanos/open-bitcoin-metrics"
-doi: "10.5281/zenodo.XXXXXXX"
-date-released: "2026-XX-XX"
+doi: "10.5281/zenodo.21156871"
+date-released: "2026-07-03"
 abstract: >-
   Open Bitcoin Metrics (OBM) is a reproducible, full-node-derived dataset
   and reference guide for Bitcoin on-chain time series designed for economic
