@@ -6377,3 +6377,12 @@ date,series_id,value,unit,frequency,release_version
 2026-06-18,obm_utxo_eod_count_daily,165803928,outputs,daily,OBM v0.1.0
 2026-06-19,obm_utxo_eod_count_daily,165851039,outputs,daily,OBM v0.1.0
 2026-06-20,obm_utxo_eod_count_daily,165887933,outputs,daily,OBM v0.1.0
+2026-06-21,obm_utxo_eod_count_daily,165885495,outputs,daily,OBM v0.1.0
+2026-06-22,obm_utxo_eod_count_daily,165910927,outputs,daily,OBM v0.1.0
+2026-06-23,obm_utxo_eod_count_daily,165907719,outputs,daily,OBM v0.1.0
+2026-06-24,obm_utxo_eod_count_daily,165936832,outputs,daily,OBM v0.1.0
+2026-06-25,obm_utxo_eod_count_daily,165977215,outputs,daily,OBM v0.1.0
+2026-06-26,obm_utxo_eod_count_daily,166045810,outputs,daily,OBM v0.1.0
+2026-06-27,obm_utxo_eod_count_daily,166060688,outputs,daily,OBM v0.1.0
+2026-06-28,obm_utxo_eod_count_daily,166105171,outputs,daily,OBM v0.1.0
+2026-06-29,obm_utxo_eod_count_daily,166124590,outputs,daily,OBM v0.1.0
