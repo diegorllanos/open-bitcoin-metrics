@@ -6387,3 +6387,4 @@ date,series_id,value,unit,frequency,release_version
 2026-06-28,obm_est7d_hashrate_ehs_daily,999.497240585981,EH/s,daily,OBM v0.1.0
 2026-06-29,obm_est7d_hashrate_ehs_daily,982.028022719004,EH/s,daily,OBM v0.1.0
 2026-06-30,obm_est7d_hashrate_ehs_daily,968.012653987404,EH/s,daily,OBM v0.1.0
+2026-07-01,obm_est7d_hashrate_ehs_daily,966.844373422533,EH/s,daily,OBM v0.1.0
