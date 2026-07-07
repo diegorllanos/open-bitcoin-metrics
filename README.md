@@ -301,31 +301,19 @@ These limitations are documented to prevent overinterpretation and to make empir
 
 ## Suggested citation
 
-Please cite both the archived dataset release and the companion paper.
+### Academic paper
 
-### Dataset
-
-```text
-Llanos, D. R. (2026). Open Bitcoin Metrics (OBM): Reproducible Full-Node Bitcoin On-Chain Time Series, Version 0.1.0. Zenodo. https://doi.org/10.5281/zenodo.21156871
-```
-
-### Companion paper
+The academic paper documents the dataset, metric definitions, reconstruction algorithms, validation procedures, usage notes, limitations, and public comparators:
 
 ```text
-Llanos, D. R. (2026). Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research. arXiv:2607.03124v1. https://arxiv.org/abs/2607.03124
+Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
+arXiv:2607.03124v1
+https://arxiv.org/abs/2607.03124
 ```
 
 ### BibTeX
 
 ```bibtex
-@dataset{llanos_obm_2026,
-  author       = {Llanos, Diego R.},
-  title        = {Open Bitcoin Metrics (OBM): Reproducible Full-Node Bitcoin On-Chain Time Series, Version 0.1.0},
-  year         = {2026},
-  publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.21156871},
-  url          = {https://doi.org/10.5281/zenodo.21156871}
-}
 
 @misc{llanos_obm_arxiv_2026,
   author       = {Llanos, Diego R.},
@@ -336,16 +324,6 @@ Llanos, D. R. (2026). Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin
   primaryClass = {cs.CE},
   url          = {https://arxiv.org/abs/2607.03124}
 }
-```
-
-## Academic paper
-
-The companion paper documents the dataset, metric definitions, reconstruction algorithms, validation procedures, usage notes, limitations, and public comparators:
-
-```text
-Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
-arXiv:2607.03124v1
-https://arxiv.org/abs/2607.03124
 ```
 
 ## License
