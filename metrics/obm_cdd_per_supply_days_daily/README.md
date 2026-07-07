@@ -243,17 +243,13 @@ Take into account that this metric:
 
 Despite these facts, `obm_cdd_per_supply_days_daily` is a useful supply-normalized coin-age indicator. It is particularly valuable for comparing daily CDD across Bitcoin's monetary history, because it reduces the mechanical effect of the growing outstanding supply on raw Bitcoin Days Destroyed.
 
+
 ## Suggested citation
 
-A formal citation will be added once the dataset receives a DOI.
-
-For now, please cite this repository as:
-
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series.
+Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
 Metric: Bitcoin Days Destroyed per Unit of Supply (obm_cdd_per_supply_days_daily).
-GitHub repository, version OBM v0.1.0.
-https://github.com/diegorllanos/open-bitcoin-metrics/
+ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 
 ## License

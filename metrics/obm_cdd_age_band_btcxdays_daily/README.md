@@ -486,6 +486,7 @@ Despite these limitations, `obm_cdd_age_band_btcxdays_daily` is a useful OBM coi
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
+Metric: Daily Bitcoin Days Destroyed by Age Band (obm_cdd_age_band_btcxdays_daily)
 ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 

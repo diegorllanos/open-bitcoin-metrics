@@ -339,6 +339,7 @@ Despite these limitations, `obm_cdd_btcxdays_daily` is a core OBM series. It pro
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
+Metric: Bitcoin Days Destroyed (obm_cdd_btcxdays_daily)
 ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 

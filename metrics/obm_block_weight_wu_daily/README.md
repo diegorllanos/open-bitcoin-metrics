@@ -377,6 +377,7 @@ Despite these limitations, `obm_block_weight_wu_daily` is a useful OBM block-spa
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
+Metric: Total Daily Block Weight (obm_block_weight_wu_daily)
 ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 

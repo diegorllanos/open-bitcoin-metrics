@@ -418,15 +418,10 @@ Despite these limitations, `obm_liveliness_ratio_daily` is a useful OBM derived 
 
 ## Suggested citation
 
-A formal citation will be added once the dataset receives a DOI.
-
-For now, please cite this repository as:
-
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
+Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
 Metric: Daily Liveliness Ratio (obm_liveliness_ratio_daily).
-GitHub repository, version OBM v0.1.0.
-https://github.com/diegorllanos/open-bitcoin-metrics/
+ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 
 Because this metric is derived from other OBM series, users should also cite or reference the documentation for the source CDD and supply series when reproducibility details are relevant.

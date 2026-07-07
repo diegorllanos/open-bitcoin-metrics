@@ -154,15 +154,10 @@ Despite these facts, `obm_tx_count_daily` is a useful baseline indicator of Bitc
 
 ## Suggested citation
 
-A formal citation will be added once the dataset receives a DOI.
-
-For now, please cite this repository as:
-
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
+Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
 Metric: Daily Bitcoin Transaction Count (obm_tx_count_daily).
-GitHub repository, version OBM v0.1.0.
-https://github.com/diegorllanos/open-bitcoin-metrics/
+ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 
 ## License

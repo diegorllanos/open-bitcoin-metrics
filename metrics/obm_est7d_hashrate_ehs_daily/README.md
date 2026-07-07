@@ -494,15 +494,10 @@ Despite these limitations, `obm_est7d_hashrate_ehs_daily` is a useful OBM mining
 
 ## Suggested citation
 
-A formal citation will be added once the dataset receives a DOI.
-
-For now, please cite this repository as:
-
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
+Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
 Metric: Estimated 7-Day Network Hashrate in EH/s (obm_est7d_hashrate_ehs_daily).
-GitHub repository, version OBM v0.1.0.
-https://github.com/diegorllanos/open-bitcoin-metrics/
+ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 
 If a non-default window is used, cite the corresponding window-specific metric explicitly, for example:

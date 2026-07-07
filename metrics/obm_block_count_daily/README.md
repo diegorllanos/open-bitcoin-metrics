@@ -182,6 +182,7 @@ Despite these facts, `obm_block_count_daily` is a useful baseline indicator of B
 
 ```text
 Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
+Metric: Block Count Daily (obm_block_count_daily)
 ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 
