@@ -1,81 +1,105 @@
 # Open Bitcoin Metrics (OBM)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21156871.svg)](https://doi.org/10.5281/zenodo.21156871)
+[![arXiv](https://img.shields.io/badge/arXiv-2607.03124-b31b1b.svg)](https://arxiv.org/abs/2607.03124)
+[![Code: MIT](https://img.shields.io/badge/Code-MIT-blue.svg)](LICENSE)
+[![Data: CC BY 4.0](https://img.shields.io/badge/Data-CC%20BY%204.0-lightgrey.svg)](DATA_LICENSE)
 
-**Open Bitcoin Metrics (OBM)** is an open-data project that provides reproducible Bitcoin on-chain time series for economic, financial, and econometric research.
+**Open Bitcoin Metrics (OBM)** is an open-data project that provides transparent, reproducible, full-node-derived Bitcoin on-chain time series for economic, financial, and econometric research.
 
-The project aims to make specialized Bitcoin metrics easier to access, audit, cite, and reproduce. Each metric is accompanied by:
+The project aims to make specialized Bitcoin metrics easier to access, audit, cite, reproduce, and compare. OBM follows Bitcoin's "do not trust, verify" principle by making the metric-generation process inspectable and rerunnable instead of requiring users to rely on opaque data pipelines.
+
+Each metric is accompanied by:
 
 - a CSV time series;
 - a Python script that generates the series;
-- a clear definition of the metric;
-- documentation of the algorithm used to compute it;
+- a stable series identifier;
+- an explicit definition and measurement unit;
+- documentation of the algorithm used to compute the metric;
+- validation notes and known limitations;
 - metadata fields intended to support reproducibility and academic use.
 
-The long-term goal is to provide a transparent, full-node-derived dataset of Bitcoin metrics suitable for research papers, replication packages, teaching, and exploratory analysis.
+The archived dataset release is **OBM v0.1.0** and is available on Zenodo:
+
+```text
+https://doi.org/10.5281/zenodo.21156871
+```
+
+The companion paper is available on arXiv:
+
+```text
+https://arxiv.org/abs/2607.03124
+```
 
 ## Motivation
 
-Bitcoin research increasingly relies on on-chain indicators to study network activity, monetary issuance, transaction demand, miner incentives, liquidity conditions, and long-run monetary behavior.
+Bitcoin research increasingly relies on on-chain indicators to study network activity, monetary issuance, transaction demand, fee-market dynamics, miner incentives, coin-age behavior, UTXO-state evolution, and long-run monetary properties.
 
-However, many Bitcoin metrics are currently dispersed across commercial dashboards, public websites, and proprietary APIs. Definitions are not always explicit, historical series may be incomplete, and access is sometimes limited by paywalls or usage restrictions.
+However, many commonly used Bitcoin metrics are dispersed across commercial platforms, blockchain explorers, public dashboards, and proprietary APIs. Even when charts or downloads are publicly visible, definitions, timestamp conventions, treatment of edge cases, smoothing choices, entity-adjustment rules, and reconstruction algorithms are often only partially documented.
 
-OBM addresses this problem by providing a reproducible and openly documented alternative. All metrics are reconstructed directly from a Bitcoin Core full node rather than copied from third-party providers. For each metric, we provide the corresponding 
-Python script and detailed instructions to reconstruct the metric from a running Bitcoin node, allowing full reproducibility.
+OBM addresses this reproducibility gap by providing an open, documented, full-node-derived baseline. The objective is not to replace commercial data providers, which often offer broad coverage, refined interfaces, higher-frequency data, entity-adjusted indicators, and market analytics. Rather, OBM provides selected Bitcoin time series reconstructed through explicit procedures, distributed with stable names, clear units, validation checks, and documented limitations.
 
-## Current status
+## Current release
 
-The project is alive. A total of 23 metrics are offered, with emphasizing robustness, reproducibility, and clear documentation.
-These metrics have been calculated using one out of three different methods: 
+The current release is:
 
-- "Primary" metrics are calculated by querying the Bitcoin blockchain. 
-- "Exported" metrics rely on a database built by preprocessing the entire blockchain. This task is carried out by the 
-"OBM spent output indexer" script, that is also offered as part of this project. An example of such metric is 
-``obm_cdd_btcxdays_daily``. See the README.md file associated to each metric in its corresponding directory for more details.
-- "Derived" metrics are calculated using primary and/or exported metrics and without querying the Bitcoin blockchain. 
+```text
+OBM v0.1.0
+```
 
+This release contains **23 daily Bitcoin on-chain metrics** covering:
 
-## Available metrics so far
+- block production;
+- block-space usage;
+- transaction counts;
+- monetary issuance and supply;
+- transaction fees and miner revenue;
+- mining difficulty and estimated hashrate;
+- Bitcoin Days Destroyed;
+- dormancy and liveliness;
+- UTXO counts;
+- spent output value;
+- UTXO-age and threshold-based spent-value indicators.
 
-| Series identifier and Display name | Description | Frequency | Unit | Type |
+The metrics are generated using three complementary approaches:
+
+| Type | Description |
+|---|---|
+| Primary | Computed directly from a locally verified Bitcoin Core full node. |
+| Indexer-exported | Exported from aggregates produced by the OBM spent-output indexer, which reconstructs previous outputs over the blockchain. |
+| Derived | Computed as deterministic transformations of already generated OBM series, without querying Bitcoin Core directly. |
+
+## Available metrics
+
+| Series identifier and display name | Description | Frequency | Unit | Type |
 |---|---|---|---|---|
-| `obm_block_count_daily`: Daily Bitcoin block count | Daily number of Bitcoin blocks confirmed on-chain | Daily | Blocks | Primary |
+| `obm_block_count_daily`: Daily Bitcoin block count | Daily number of Bitcoin blocks assigned to each UTC date | Daily | Blocks | Primary |
 | `obm_block_weight_wu_daily`: Daily block weight in weight units | Total daily block weight of all blocks assigned to each UTC date | Daily | WU | Primary |
-| `obm_cdd_age_band_btcxdays_daily`: Bitcoin Days Destroyed by age band | Daily Bitcoin Days Destroyed decomposed by spent-output age band | Daily | BTC-days | Exported |
-| `obm_cdd_btcxdays_daily`: Bitcoin Days Destroyed | Daily Bitcoin Days Destroyed from spent outputs | Daily | BTC-days | Exported |
-| `obm_cdd_per_supply_days_daily`: Bitcoin Days Destroyed per unit of supply | Supply-adjusted Bitcoin Days Destroyed | Daily | Days | Derived |
-| `obm_difficulty_eod_daily`: End-of-day Bitcoin mining difficulty | Mining difficulty of the last block assigned to each UTC date | Daily | Difficulty | Primary |
-| `obm_dormancy_days_daily`: Daily dormancy | Value-weighted average age of outputs spent each day | Daily | Days | Exported |
-| `obm_est7d_hashrate_ehs_daily`: Estimated 7-day network hashrate | Estimated network hashrate using a trailing 7-day rolling window | Daily | EH/s | Primary |
+| `obm_cdd_age_band_btcxdays_daily`: Bitcoin Days Destroyed by age band | Daily Bitcoin Days Destroyed decomposed by spent-output age band | Daily | BTC-days | Indexer-exported |
+| `obm_cdd_btcxdays_daily`: Bitcoin Days Destroyed | Daily Bitcoin Days Destroyed from spent outputs | Daily | BTC-days | Indexer-exported |
+| `obm_cdd_per_supply_days_daily`: Bitcoin Days Destroyed per unit of supply | Supply-normalized Bitcoin Days Destroyed | Daily | Days | Derived |
+| `obm_difficulty_eod_daily`: End-of-day Bitcoin mining difficulty | Mining difficulty of the highest-height block assigned to each UTC date | Daily | Difficulty | Primary |
+| `obm_dormancy_days_daily`: Daily dormancy | Value-weighted average age of outputs spent each day | Daily | Days | Indexer-exported |
+| `obm_est7d_hashrate_ehs_daily`: Estimated 7-day network hashrate | Estimated network hashrate using a trailing 7-day UTC window | Daily | EH/s | Primary |
 | `obm_fee_share_revenue_ratio_daily`: Fees as share of miner revenue | Daily transaction fees divided by miner revenue | Daily | Ratio | Derived |
-| `obm_fees_btc_daily`: Daily transaction fees in BTC | Total daily transaction fees confirmed on-chain | Daily | BTC | Exported |
-| `obm_issuance_btc_daily`: Daily Bitcoin issuance | Realized daily Bitcoin issuance in BTC | Daily | BTC | Exported |
+| `obm_fees_btc_daily`: Daily transaction fees in BTC | Total daily transaction fees paid by non-coinbase transactions | Daily | BTC | Indexer-exported |
+| `obm_issuance_btc_daily`: Daily Bitcoin issuance | Realized daily Bitcoin issuance in BTC | Daily | BTC | Indexer-exported |
 | `obm_liveliness_ratio_daily`: Daily liveliness ratio | Cumulative coin-days destroyed relative to cumulative coin-days created | Daily | Ratio | Derived |
-| `obm_miner_revenue_btc_daily`: Daily miner revenue in BTC | Daily miner revenue from coinbase outputs, including issuance and fees | Daily | BTC | Exported |
+| `obm_miner_revenue_btc_daily`: Daily miner revenue in BTC | Daily miner revenue from coinbase outputs, including issuance and fees | Daily | BTC | Indexer-exported |
 | `obm_raw_output_value_btc_daily`: Daily raw output value in BTC | Total BTC value of non-coinbase transaction outputs | Daily | BTC | Primary |
-| `obm_spent_output_count_daily`: Daily spent output count | Number of previous outputs spent by non-coinbase transaction inputs | Daily | Outputs | Exported |
-| `obm_spent_value_age_band_btc_daily`: Spent output value by age band in BTC | Daily spent output value decomposed by spent-output age band | Daily | BTC | Exported |
-| `obm_spent_value_btc_daily`: Daily spent output value in BTC | Total BTC value of outputs spent each day | Daily | BTC | Exported |
-| `obm_spent_value_ge155d_btc_daily`: Spent output value aged at least 155 days | Daily BTC value of spent outputs aged at least 155 days | Daily | BTC | Exported |
-| `obm_spent_value_ge365d_btc_daily`: Spent output value aged at least 365 days | Daily BTC value of spent outputs aged at least 365 days | Daily | BTC | Exported |
+| `obm_spent_output_count_daily`: Daily spent output count | Number of previous outputs spent by non-coinbase transaction inputs | Daily | Outputs | Indexer-exported |
+| `obm_spent_value_age_band_btc_daily`: Spent output value by age band in BTC | Daily spent output value decomposed by spent-output age band | Daily | BTC | Indexer-exported |
+| `obm_spent_value_btc_daily`: Daily spent output value in BTC | Total BTC value of previous outputs spent each day | Daily | BTC | Indexer-exported |
+| `obm_spent_value_ge155d_btc_daily`: Spent output value aged at least 155 days | Daily BTC value of spent outputs aged at least 155 days | Daily | BTC | Indexer-exported |
+| `obm_spent_value_ge365d_btc_daily`: Spent output value aged at least 365 days | Daily BTC value of spent outputs aged at least 365 days | Daily | BTC | Indexer-exported |
 | `obm_spent_value_lt155d_btc_daily`: Spent output value younger than 155 days | Daily BTC value of spent outputs aged less than 155 days | Daily | BTC | Derived |
 | `obm_supply_btc_daily`: Bitcoin supply | End-of-day accumulated Bitcoin supply since genesis | Daily | BTC | Derived |
 | `obm_tx_count_daily`: Daily Bitcoin transaction count | Daily number of Bitcoin transactions confirmed on-chain | Daily | Transactions | Primary |
-| `obm_utxo_eod_count_daily`: End-of-day UTXO count | Number of spendable UTXOs after the last block assigned to each UTC date | Daily | Outputs | Primary |
-
-## Future metrics
-
-Future metrics planned for inclusion include:
-
-| Series identifier | Display name | Main use |
-|---|---|---|
-| `obm_active_address_count_daily` | Active address count | Approximate address-level network participation |
-
-The planned list may evolve as definitions are refined and validation procedures are developed.
+| `obm_utxo_eod_count_daily`: End-of-day UTXO count | Number of spendable UTXOs after the highest-height block assigned to each UTC date | Daily | Outputs | Primary |
 
 ## Data philosophy
 
-OBM follows five principles.
+OBM follows six principles.
 
 ### 1. Primary-source derivation
 
@@ -87,21 +111,40 @@ Each variable is associated with an explicit definition, a stable series identif
 
 ### 3. Econometric usability
 
-Series are distributed in regular time intervals, initially daily, using clear timestamp conventions and aggregation rules.
+Series are distributed at regular time intervals, initially daily, using clear timestamp conventions, aggregation rules, units, and metadata.
 
-### 4. Reproducibility
+### 4. Versioned reproducibility
 
-Each metric is accompanied by the Python script used to generate it. The objective is that a researcher with a synchronized Bitcoin node can reproduce the published values.
-
-### 5. Versioning
-
-Dataset releases use explicit release labels, for example:
+Scripts, outputs, documentation, and data releases are archived and versioned. Dataset releases use explicit release labels, for example:
 
 ```text
 OBM v0.1.0
 ```
 
-This allows researchers to cite and reproduce the exact version used in their work.
+### 5. Validation
+
+Selected metrics are checked using internal identities, consistency tests, and diagnostic comparisons with independent public sources.
+
+### 6. Verification-oriented openness
+
+Users are not required to treat OBM as an authority. They can inspect, rerun, compare, and modify the code that generates the metrics.
+
+## Data-generation pipeline
+
+The OBM pipeline transforms primary Bitcoin blockchain data into regular, documented, econometric-ready time series.
+
+The general workflow is:
+
+1. synchronize and maintain a Bitcoin Core full node;
+2. extract block-level and transaction-level information from the validated main chain;
+3. reconstruct previous outputs where required;
+4. store reusable spent-output and block-level aggregates in a persistent indexer database;
+5. export metric-specific daily series from the node scan, the indexer database, or existing OBM CSV files;
+6. produce monthly versions where appropriate, using metric-specific aggregation rules;
+7. validate outputs using internal identities and diagnostic comparisons;
+8. publish updated files, scripts, metadata, and documentation.
+
+The spent-output indexer is used for metrics requiring previous-output reconstruction, including transaction fees, realized issuance, miner revenue, spent value, Bitcoin Days Destroyed, dormancy, and UTXO-age indicators.
 
 ## Standard CSV schema
 
@@ -146,101 +189,99 @@ Examples:
 obm_tx_count_daily
 obm_supply_btc_daily
 obm_fees_btc_daily
+obm_cdd_btcxdays_daily
 ```
 
 The `obm_` prefix identifies the Open Bitcoin Metrics dataset and reduces ambiguity when OBM series are merged with external macro-financial variables.
 
 ## Repository structure
 
-The repository structure is the following:
+The repository is organized around metric-level directories and shared tools:
 
 ```text
 open-bitcoin-metrics/
     metrics/
-       (Available metrics)
+       <metric_name>/
+          compute_<metric_name>.py
+          <metric_name>.csv
+          <metric_name>.png
+          README.md
        DATA_LICENSE
        LICENSE
     tools/
        auxiliar-scripts/
-          plot_obm_cdd_age_band_btcxdays_daily.py
           plot_obm_csv.py
-          plot_obm_spent_value_age_band_btc_daily.py
           README.md
        spent_output_indexer/
           obm_spent_output_indexer.py
           README.md
+    CITATION.cff
     README.md
 ```
 
-Inside each metric directory there are three files: the "compute" Python script; the CSV file and a 
-PNG containing a plot representing the metric. 
-
-The structure will expand as additional metrics are added.
+Each metric directory contains the files needed to understand, regenerate, and inspect the corresponding series. Metric-level README files provide the definition, interpretation, data format, script usage, validation notes, known limitations, citation guidance, and license information for each series.
 
 ## Reproducibility requirements
 
-OBM scripts assume:
+OBM scripts assume some combination of the following requirements, depending on the metric:
 
+- Python 3;
 - a synchronized Bitcoin Core full node;
 - access to the Bitcoin Core JSON-RPC interface;
-- Python 3;
+- a non-pruned node with `txindex=1` for full historical reconstruction;
 - a Linux environment for scheduled execution;
+- the OBM spent-output indexer database for metrics requiring previous-output reconstruction;
+- existing OBM CSV files for derived metrics;
 - optional plotting libraries, such as `matplotlib`, when plots are requested.
 
-Some future metrics, especially UTXO-age metrics such as Bitcoin Days Destroyed, may require additional indexing or reconstruction of previous transaction outputs.
+Not every metric requires direct Bitcoin Core access. Derived metrics such as `obm_fee_share_revenue_ratio_daily`, `obm_cdd_per_supply_days_daily`, `obm_liveliness_ratio_daily`, `obm_supply_btc_daily`, and `obm_spent_value_lt155d_btc_daily` are computed from already generated OBM series.
 
 ## Example usage
 
-General format of command-line parameters:
+The exact command-line parameters are metric-specific. See the README file inside each metric directory for full instructions.
 
-
-```bash
-compute_obm_block_count_daily.py [-h] 
-   --start_date START_DATE 
-   --end_date END_DATE 
-   [--output OUTPUT]
-   [--release_version RELEASE_VERSION] 
-   [--rpc_host RPC_HOST]
-   [--rpc_port RPC_PORT] 
-   [--rpc_user RPC_USER]
-   [--rpc_password RPC_PASSWORD] 
-   [--datadir DATADIR]
-   [--cookie_path COOKIE_PATH] 
-   [--height_margin HEIGHT_MARGIN]
-   [--progress_every PROGRESS_EVERY] 
-   [--plot]
-   [--plot_output PLOT_OUTPUT]
-```
-
-For example, the following invocation generates the daily transaction-count series and 
-the corresponding plot:
+A typical primary metric can be generated as follows:
 
 ```bash
-python3 scripts/compute_obm_tx_count_daily.py \
+python3 metrics/obm_tx_count_daily/compute_obm_tx_count_daily.py \
   --start_date 2024-01-01 \
   --end_date 2024-01-31 \
-  --output data/daily/obm_tx_count_daily.csv \
-  --release_version "OBM v0.1.0"
+  --output metrics/obm_tx_count_daily/obm_tx_count_daily.csv \
+  --release_version "OBM v0.1.0" \
   --plot \
-  --plot_output data/obm_tx_count_daily/obm_tx_count_daily.png
+  --plot_output metrics/obm_tx_count_daily/obm_tx_count_daily.png
 ```
 
-Finally, to plot any OBM-compatible CSV file:
+A derived metric can be generated from existing OBM CSV files. For example:
 
 ```bash
-python3 scripts/plot_obm_csv.py data/daily/obm_tx_count_daily.csv \
-  --output data/obm_tx_count_daily/obm_tx_count_daily.png
+python3 metrics/obm_cdd_per_supply_days_daily/compute_obm_cdd_per_supply_days_daily.py \
+  metrics/obm_cdd_btcxdays_daily/obm_cdd_btcxdays_daily.csv \
+  metrics/obm_supply_btc_daily/obm_supply_btc_daily.csv \
+  --start_date 2024-01-01 \
+  --end_date 2024-01-31 \
+  --output metrics/obm_cdd_per_supply_days_daily/obm_cdd_per_supply_days_daily.csv \
+  --plot \
+  --plot_output metrics/obm_cdd_per_supply_days_daily/obm_cdd_per_supply_days_daily.png
+```
+
+To plot any OBM-compatible CSV file:
+
+```bash
+python3 tools/auxiliar-scripts/plot_obm_csv.py \
+  metrics/obm_tx_count_daily/obm_tx_count_daily.csv \
+  --output metrics/obm_tx_count_daily/obm_tx_count_daily.png
 ```
 
 ## Validation
 
 Validation is metric-specific, but OBM generally relies on three types of checks:
 
-1. **Internal consistency checks**, such as missing dates, duplicate dates, negative values, or inconsistent totals.
+1. **Internal consistency checks**, such as missing dates, duplicate dates, negative values, inconsistent totals, invalid units, or inconsistent release labels.
 2. **Reproducibility checks**, ensuring that scripts can regenerate the published series from the documented inputs.
-3. **External comparisons**, when comparable public series are available.
+3. **External diagnostic comparisons**, when comparable public series are available.
 
-External comparisons are diagnostic rather than definitive. Data providers may differ in timestamp conventions, treatment of chain reorganizations, inclusion rules, or metric definitions.
+External comparisons are diagnostic rather than definitive. Data providers may differ in timestamp conventions, treatment of chain reorganizations, entity-adjustment heuristics, smoothing choices, or metric definitions.
 
 ## Known limitations
 
@@ -248,56 +289,83 @@ OBM metrics should be interpreted carefully.
 
 - On-chain transactions do not map one-to-one to users.
 - On-chain transactions do not map one-to-one to economically distinct payments.
-- Address-based metrics require heuristics and should not be interpreted as user counts.
-- Gross transaction-value metrics can include self-transfers, change outputs, and exchange activity.
-- USD-denominated metrics require external price data and are therefore not purely full-node-derived.
+- Raw transaction-value and spent-value metrics can include self-transfers, change outputs, exchange activity, custodial wallet management, batching, and wallet consolidation.
+- Address-based and entity-adjusted metrics are not included unless explicitly documented.
+- USD-denominated metrics require external price data and are not purely full-node-derived.
 - Daily aggregation depends on timestamp conventions.
-- Daily rolling releases may be revised if bugs, edge cases, or definitional improvements are identified.
+- Bitcoin block timestamps are not strictly monotonic.
+- Some early historical edge cases require explicit conventions, including duplicate coinbase transaction identifiers and apparent negative spent-output ages caused by timestamp ordering.
+- Rolling repository updates may be revised if bugs, edge cases, or definitional improvements are identified.
+
+These limitations are documented to prevent overinterpretation and to make empirical use of the series more transparent.
 
 ## Suggested citation
 
-Please cite the repository as:
+Please cite both the archived dataset release and the companion paper.
+
+### Dataset
 
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series 
-GitHub repository, version OBM v0.1.0.
-DOI: 10.5281/zenodo.21156871
-https://github.com/diegorllanos/open-bitcoin-metrics/
+Llanos, D. R. (2026). Open Bitcoin Metrics (OBM): Reproducible Full-Node Bitcoin On-Chain Time Series, Version 0.1.0. Zenodo. https://doi.org/10.5281/zenodo.21156871
 ```
 
-For a specific dataset release, include the release version, for example:
+### Companion paper
 
 ```text
-Open Bitcoin Metrics, OBM v0.1.0.
+Llanos, D. R. (2026). Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research. arXiv:2607.03124v1. https://arxiv.org/abs/2607.03124
+```
+
+### BibTeX
+
+```bibtex
+@dataset{llanos_obm_2026,
+  author       = {Llanos, Diego R.},
+  title        = {Open Bitcoin Metrics (OBM): Reproducible Full-Node Bitcoin On-Chain Time Series, Version 0.1.0},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.21156871},
+  url          = {https://doi.org/10.5281/zenodo.21156871}
+}
+
+@misc{llanos_obm_arxiv_2026,
+  author       = {Llanos, Diego R.},
+  title        = {Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research},
+  year         = {2026},
+  eprint       = {2607.03124},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CE},
+  url          = {https://arxiv.org/abs/2607.03124}
+}
 ```
 
 ## Academic paper
 
-The project is being developed alongside a data descriptor manuscript tentatively titled
-"Open Bitcoin Metrics: A Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for 
-Economic Research".
+The companion paper documents the dataset, metric definitions, reconstruction algorithms, validation procedures, usage notes, limitations, and public comparators:
 
-The intended contribution of the paper, that is not yet publicly available, is to document the 
-dataset, metric definitions, reconstruction algorithms, validation procedures, and usage notes. We
-will update this information as soon as the paper becomes available. 
+```text
+Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
+arXiv:2607.03124v1
+https://arxiv.org/abs/2607.03124
+```
 
 ## License
 
 - Code: MIT License.
 - Data and documentation: Creative Commons Attribution 4.0 International, CC BY 4.0.
 
-See the corresponding `LICENSE` files in the `data/` and `scripts/` directories.
+See the corresponding license files in the repository.
 
 ## Contact
 
 Maintainer:
 
 ```text
-Prof. Diego R. Llanos, diego.llanos@uva.es
+Prof. Diego R. Llanos
+diego.llanos@uva.es
 Department of Computer Science
 University of Valladolid, Spain
 ```
 
 ## Project status
 
-OBM is under active development. The goal is to build a reliable set of robust, well-documented, reproducible Bitcoin time series, and later expanding toward more complex metrics.
+OBM is under active maintenance. The current public release is **OBM v0.1.0**, archived on Zenodo and documented in the companion arXiv paper. The repository provides the live location for code, documentation, metric-level README files, plots, and rolling updates.
