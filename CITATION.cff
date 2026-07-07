@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use Open Bitcoin Metrics (OBM), please cite both the archived dataset release and the accompanying manuscript."
-title: "Open Bitcoin Metrics (OBM): Reproducible Full-Node Bitcoin On-Chain Time Series"
+title: "Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research"
 version: "v0.1.0"
 type: dataset
 authors:
@@ -33,11 +33,11 @@ keywords:
 license: "CC-BY-4.0"
 preferred-citation:
   type: article
-  title: "Open Bitcoin Metrics: Reproducible Full-Node Dataset of Bitcoin On-Chain Time Series for Economic Research"
+  title: "Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research"
   authors:
     - family-names: "Llanos"
       given-names: "Diego R."
       affiliation: "University of Valladolid"
       email: "diego.llanos@uva.es"
   year: 2026
-  url: "https://arxiv.org/abs/XXXX.XXXXX"
+  url: "https://arxiv.org/abs/2607.03124"

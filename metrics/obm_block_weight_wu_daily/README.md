@@ -375,15 +375,9 @@ Despite these limitations, `obm_block_weight_wu_daily` is a useful OBM block-spa
 
 ## Suggested citation
 
-A formal citation will be added once the dataset receives a DOI.
-
-For now, please cite this repository as:
-
 ```text
-Llanos, D. R. Open Bitcoin Metrics: Reproducible Full-Node-Derived Bitcoin On-Chain Time Series
-Metric: Daily Block Weight in Weight Units (obm_block_weight_wu_daily).
-GitHub repository, version OBM v0.1.0.
-https://github.com/diegorllanos/open-bitcoin-metrics/
+Llanos, D. R. Open Bitcoin Metrics: Verifiable Full-Node-Derived Bitcoin Time Series for Economic Research
+ArXiv preprint, https://arxiv.org/abs/2607.03124
 ```
 
 ## License
