@@ -6394,3 +6394,4 @@ date,series_id,value,unit,frequency,release_version
 2026-07-03,obm_tx_count_daily,685422,transactions,daily,OBM v0.1.0
 2026-07-04,obm_tx_count_daily,766307,transactions,daily,OBM v0.1.0
 2026-07-05,obm_tx_count_daily,635997,transactions,daily,OBM v0.1.0
+2026-07-06,obm_tx_count_daily,518667,transactions,daily,OBM v0.1.0
