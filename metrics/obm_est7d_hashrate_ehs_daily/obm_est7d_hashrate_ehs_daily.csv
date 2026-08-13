@@ -6425,3 +6425,4 @@ date,series_id,value,unit,frequency,release_version
 2026-08-05,obm_est7d_hashrate_ehs_daily,944.049538916382,EH/s,daily,OBM v0.1.0
 2026-08-06,obm_est7d_hashrate_ehs_daily,920.431542813201,EH/s,daily,OBM v0.1.0
 2026-08-07,obm_est7d_hashrate_ehs_daily,921.526878887366,EH/s,daily,OBM v0.1.0
+2026-08-08,obm_est7d_hashrate_ehs_daily,904.435778022608,EH/s,daily,OBM v0.1.0
