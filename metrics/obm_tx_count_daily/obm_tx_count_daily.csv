@@ -6428,3 +6428,4 @@ date,series_id,value,unit,frequency,release_version
 2026-08-06,obm_tx_count_daily,542214,transactions,daily,OBM v0.1.0
 2026-08-07,obm_tx_count_daily,722683,transactions,daily,OBM v0.1.0
 2026-08-08,obm_tx_count_daily,653881,transactions,daily,OBM v0.1.0
+2026-08-09,obm_tx_count_daily,731687,transactions,daily,OBM v0.1.0
