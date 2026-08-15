@@ -6429,3 +6429,4 @@ date,series_id,value,unit,frequency,release_version
 2026-08-07,obm_miner_revenue_btc_daily,497.71931694,BTC,daily,OBM v0.1.0
 2026-08-08,obm_miner_revenue_btc_daily,449.46962886,BTC,daily,OBM v0.1.0
 2026-08-09,obm_miner_revenue_btc_daily,449.07711388,BTC,daily,OBM v0.1.0
+2026-08-10,obm_miner_revenue_btc_daily,437.42020809,BTC,daily,OBM v0.1.0
