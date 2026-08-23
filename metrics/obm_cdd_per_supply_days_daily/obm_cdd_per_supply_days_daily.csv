@@ -6433,3 +6433,4 @@ date,series_id,value,unit,frequency,release_version
 2026-08-13,obm_cdd_per_supply_days_daily,0.521029584087,days,daily,OBM v0.1.0
 2026-08-14,obm_cdd_per_supply_days_daily,0.394819234202,days,daily,OBM v0.1.0
 2026-08-15,obm_cdd_per_supply_days_daily,0.207679893584,days,daily,OBM v0.1.0
+2026-08-16,obm_cdd_per_supply_days_daily,0.330820220388,days,daily,OBM v0.1.0
