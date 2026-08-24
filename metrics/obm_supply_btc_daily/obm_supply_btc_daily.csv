@@ -6438,3 +6438,4 @@ date,series_id,value,unit,frequency,release_version
 2026-08-16,obm_supply_btc_daily,20071236.66655096,BTC,daily,OBM v0.1.0
 2026-08-17,obm_supply_btc_daily,20071730.41655096,BTC,daily,OBM v0.1.0
 2026-08-18,obm_supply_btc_daily,20072196.04155096,BTC,daily,OBM v0.1.0
+2026-08-19,obm_supply_btc_daily,20072580.41655096,BTC,daily,OBM v0.1.0
