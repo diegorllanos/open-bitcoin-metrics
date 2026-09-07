@@ -6452,3 +6452,4 @@ date,series_id,value,unit,frequency,release_version
 2026-08-30,obm_spent_value_ge365_btc_daily,2411.07017779,BTC,daily,OBM v0.1.0
 2026-08-31,obm_spent_value_ge365_btc_daily,5275.39051739,BTC,daily,OBM v0.1.0
 2026-09-01,obm_spent_value_ge365_btc_daily,5973.26037060,BTC,daily,OBM v0.1.0
+2026-09-02,obm_spent_value_ge365_btc_daily,7428.12694119,BTC,daily,OBM v0.1.0

@@ -6452,3 +6452,4 @@ date,series_id,value,unit,frequency,release_version
 2026-08-30,obm_issuance_btc_daily,509.37500000,BTC,daily,OBM v0.1.0
 2026-08-31,obm_issuance_btc_daily,475.00000000,BTC,daily,OBM v0.1.0
 2026-09-01,obm_issuance_btc_daily,443.75000000,BTC,daily,OBM v0.1.0
+2026-09-02,obm_issuance_btc_daily,428.12500000,BTC,daily,OBM v0.1.0
