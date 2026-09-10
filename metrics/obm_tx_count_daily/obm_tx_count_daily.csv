@@ -6455,3 +6455,4 @@ date,series_id,value,unit,frequency,release_version
 2026-09-02,obm_tx_count_daily,581418,transactions,daily,OBM v0.1.0
 2026-09-03,obm_tx_count_daily,712367,transactions,daily,OBM v0.1.0
 2026-09-04,obm_tx_count_daily,618290,transactions,daily,OBM v0.1.0
+2026-09-05,obm_tx_count_daily,723854,transactions,daily,OBM v0.1.0
