@@ -6458,3 +6458,4 @@ date,series_id,value,unit,frequency,release_version
 2026-09-05,obm_spent_value_btc_daily,680051.74558497,BTC,daily,OBM v0.1.0
 2026-09-06,obm_spent_value_btc_daily,611690.50620833,BTC,daily,OBM v0.1.0
 2026-09-07,obm_spent_value_btc_daily,728736.44245008,BTC,daily,OBM v0.1.0
+2026-09-08,obm_spent_value_btc_daily,773705.28806451,BTC,daily,OBM v0.1.0
