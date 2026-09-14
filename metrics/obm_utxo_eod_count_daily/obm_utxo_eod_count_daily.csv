@@ -6457,3 +6457,4 @@ date,series_id,value,unit,frequency,release_version
 2026-09-06,obm_utxo_eod_count_daily,165317447,outputs,daily,OBM v0.1.0
 2026-09-07,obm_utxo_eod_count_daily,165334594,outputs,daily,OBM v0.1.0
 2026-09-08,obm_utxo_eod_count_daily,165341165,outputs,daily,OBM v0.1.0
+2026-09-09,obm_utxo_eod_count_daily,165202208,outputs,daily,OBM v0.1.0
