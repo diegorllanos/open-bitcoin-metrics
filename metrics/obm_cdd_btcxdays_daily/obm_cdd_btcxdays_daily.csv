@@ -6471,3 +6471,4 @@ date,series_id,value,unit,frequency,release_version
 2026-09-20,obm_cdd_btcxdays_daily,3690295.54605579,BTC-days,daily,OBM v0.1.0
 2026-09-21,obm_cdd_btcxdays_daily,13238788.52820973,BTC-days,daily,OBM v0.1.0
 2026-09-22,obm_cdd_btcxdays_daily,34959725.49763293,BTC-days,daily,OBM v0.1.0
+2026-09-23,obm_cdd_btcxdays_daily,16089141.40058691,BTC-days,daily,OBM v0.1.0
