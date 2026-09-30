@@ -6473,3 +6473,4 @@ date,series_id,value,unit,frequency,release_version
 2026-09-22,obm_liveliness_ratio_daily,0.629787434009,ratio,daily,OBM v0.1.0
 2026-09-23,obm_liveliness_ratio_daily,0.629824250882,ratio,daily,OBM v0.1.0
 2026-09-24,obm_liveliness_ratio_daily,0.629823943033,ratio,daily,OBM v0.1.0
+2026-09-25,obm_liveliness_ratio_daily,0.629926069602,ratio,daily,OBM v0.1.0
