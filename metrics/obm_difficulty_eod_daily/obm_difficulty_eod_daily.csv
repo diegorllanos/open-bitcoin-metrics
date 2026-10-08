@@ -6481,3 +6481,4 @@ date,series_id,value,unit,frequency,release_version
 2026-09-30,obm_difficulty_eod_daily,132757073449487.500000000000,difficulty,daily,OBM v0.1.0
 2026-10-01,obm_difficulty_eod_daily,132757073449487.500000000000,difficulty,daily,OBM v0.1.0
 2026-10-02,obm_difficulty_eod_daily,132757073449487.500000000000,difficulty,daily,OBM v0.1.0
+2026-10-03,obm_difficulty_eod_daily,132716002350731.300000000000,difficulty,daily,OBM v0.1.0
