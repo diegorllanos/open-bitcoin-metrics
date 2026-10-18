@@ -6493,3 +6493,4 @@ date,series_id,value,unit,frequency,release_version
 2026-10-10,obm_fees_btc_daily,2.19433511,BTC,daily,OBM v0.1.0
 2026-10-11,obm_fees_btc_daily,2.36163881,BTC,daily,OBM v0.1.0
 2026-10-12,obm_fees_btc_daily,2.86069738,BTC,daily,OBM v0.1.0
+2026-10-13,obm_fees_btc_daily,2.68132439,BTC,daily,OBM v0.1.0
