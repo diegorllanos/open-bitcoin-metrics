@@ -6495,3 +6495,4 @@ date,series_id,value,unit,frequency,release_version
 2026-10-12,obm_block_count_daily,152,blocks,daily,OBM v0.1.0
 2026-10-13,obm_block_count_daily,163,blocks,daily,OBM v0.1.0
 2026-10-14,obm_block_count_daily,161,blocks,daily,OBM v0.1.0
+2026-10-15,obm_block_count_daily,154,blocks,daily,OBM v0.1.0
