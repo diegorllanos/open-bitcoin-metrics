@@ -6500,3 +6500,4 @@ date,series_id,value,unit,frequency,release_version
 2026-10-17,obm_spent_output_count_daily,1055084,outputs,daily,OBM v0.1.0
 2026-10-18,obm_spent_output_count_daily,1265754,outputs,daily,OBM v0.1.0
 2026-10-19,obm_spent_output_count_daily,1288838,outputs,daily,OBM v0.1.0
+2026-10-20,obm_spent_output_count_daily,1279992,outputs,daily,OBM v0.1.0
