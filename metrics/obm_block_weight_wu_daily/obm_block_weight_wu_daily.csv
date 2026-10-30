@@ -6503,3 +6503,4 @@ date,series_id,value,unit,frequency,release_version
 2026-10-22,obm_block_weight_wu_daily,503878168,WU,daily,OBM v0.1.0
 2026-10-23,obm_block_weight_wu_daily,678441470,WU,daily,OBM v0.1.0
 2026-10-24,obm_block_weight_wu_daily,568132413,WU,daily,OBM v0.1.0
+2026-10-25,obm_block_weight_wu_daily,614268463,WU,daily,OBM v0.1.0
