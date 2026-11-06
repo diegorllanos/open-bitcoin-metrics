@@ -6507,3 +6507,9 @@ date,series_id,value,unit,frequency,release_version
 2026-10-24,obm_block_count_daily,146,blocks,daily,OBM v0.1.0
 2026-10-25,obm_block_count_daily,156,blocks,daily,OBM v0.1.0
 2026-10-26,obm_block_count_daily,162,blocks,daily,OBM v0.1.0
+2026-10-27,obm_block_count_daily,158,blocks,daily,OBM v0.1.0
+2026-10-28,obm_block_count_daily,144,blocks,daily,OBM v0.1.0
+2026-10-29,obm_block_count_daily,137,blocks,daily,OBM v0.1.0
+2026-10-30,obm_block_count_daily,144,blocks,daily,OBM v0.1.0
+2026-10-31,obm_block_count_daily,147,blocks,daily,OBM v0.1.0
+2026-11-01,obm_block_count_daily,148,blocks,daily,OBM v0.1.0

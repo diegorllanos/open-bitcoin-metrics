@@ -6505,3 +6505,9 @@ date,series_id,value,unit,frequency,release_version
 2026-10-24,obm_est7d_hashrate_ehs_daily,1075.642307708674,EH/s,daily,OBM v0.1.0
 2026-10-25,obm_est7d_hashrate_ehs_daily,1072.430794510809,EH/s,daily,OBM v0.1.0
 2026-10-26,obm_est7d_hashrate_ehs_daily,1080.440544774697,EH/s,daily,OBM v0.1.0
+2026-10-27,obm_est7d_hashrate_ehs_daily,1077.075633529873,EH/s,daily,OBM v0.1.0
+2026-10-28,obm_est7d_hashrate_ehs_daily,1068.146019307370,EH/s,daily,OBM v0.1.0
+2026-10-29,obm_est7d_hashrate_ehs_daily,1078.600119944855,EH/s,daily,OBM v0.1.0
+2026-10-30,obm_est7d_hashrate_ehs_daily,1056.781128094063,EH/s,daily,OBM v0.1.0
+2026-10-31,obm_est7d_hashrate_ehs_daily,1064.601316833181,EH/s,daily,OBM v0.1.0
+2026-11-01,obm_est7d_hashrate_ehs_daily,1070.279369579664,EH/s,daily,OBM v0.1.0
