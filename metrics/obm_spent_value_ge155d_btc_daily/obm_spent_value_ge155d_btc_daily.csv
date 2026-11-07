@@ -6513,3 +6513,4 @@ date,series_id,value,unit,frequency,release_version
 2026-10-30,obm_spent_value_ge155d_btc_daily,32835.42333682,BTC,daily,OBM v0.1.0
 2026-10-31,obm_spent_value_ge155d_btc_daily,18253.36005835,BTC,daily,OBM v0.1.0
 2026-11-01,obm_spent_value_ge155d_btc_daily,25072.63791960,BTC,daily,OBM v0.1.0
+2026-11-02,obm_spent_value_ge155d_btc_daily,26100.23585008,BTC,daily,OBM v0.1.0
