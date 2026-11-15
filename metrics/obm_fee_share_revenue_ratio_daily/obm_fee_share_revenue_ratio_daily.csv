@@ -6521,3 +6521,4 @@ date,series_id,value,unit,frequency,release_version
 2026-11-07,obm_fee_share_revenue_ratio_daily,0.006358501423,ratio,daily,OBM v0.1.0
 2026-11-08,obm_fee_share_revenue_ratio_daily,0.009106956411,ratio,daily,OBM v0.1.0
 2026-11-09,obm_fee_share_revenue_ratio_daily,0.007890233911,ratio,daily,OBM v0.1.0
+2026-11-10,obm_fee_share_revenue_ratio_daily,0.006619179639,ratio,daily,OBM v0.1.0
