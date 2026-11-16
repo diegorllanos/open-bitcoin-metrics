@@ -6520,3 +6520,4 @@ date,series_id,value,unit,frequency,release_version
 2026-11-08,obm_liveliness_ratio_daily,0.630410012387,ratio,daily,OBM v0.1.0
 2026-11-09,obm_liveliness_ratio_daily,0.630391142522,ratio,daily,OBM v0.1.0
 2026-11-10,obm_liveliness_ratio_daily,0.630544206102,ratio,daily,OBM v0.1.0
+2026-11-11,obm_liveliness_ratio_daily,0.630539846757,ratio,daily,OBM v0.1.0
