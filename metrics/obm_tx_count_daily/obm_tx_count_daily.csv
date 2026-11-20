@@ -6526,3 +6526,4 @@ date,series_id,value,unit,frequency,release_version
 2026-11-12,obm_tx_count_daily,472840,transactions,daily,OBM v0.1.0
 2026-11-13,obm_tx_count_daily,422877,transactions,daily,OBM v0.1.0
 2026-11-14,obm_tx_count_daily,465786,transactions,daily,OBM v0.1.0
+2026-11-15,obm_tx_count_daily,963618,transactions,daily,OBM v0.1.0
