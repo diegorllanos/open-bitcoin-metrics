@@ -6528,3 +6528,4 @@ date,series_id,value,unit,frequency,release_version
 2026-11-14,obm_block_count_daily,136,blocks,daily,OBM v0.1.0
 2026-11-15,obm_block_count_daily,172,blocks,daily,OBM v0.1.0
 2026-11-16,obm_block_count_daily,164,blocks,daily,OBM v0.1.0
+2026-11-17,obm_block_count_daily,149,blocks,daily,OBM v0.1.0
