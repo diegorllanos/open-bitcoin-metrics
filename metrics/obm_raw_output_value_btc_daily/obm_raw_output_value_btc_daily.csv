@@ -6528,3 +6528,4 @@ date,series_id,value,unit,frequency,release_version
 2026-11-16,obm_raw_output_value_btc_daily,1249960.78520323,BTC,daily,OBM v0.1.0
 2026-11-17,obm_raw_output_value_btc_daily,1150231.05998851,BTC,daily,OBM v0.1.0
 2026-11-18,obm_raw_output_value_btc_daily,1171577.06226676,BTC,daily,OBM v0.1.0
+2026-11-19,obm_raw_output_value_btc_daily,1120771.41911594,BTC,daily,OBM v0.1.0
