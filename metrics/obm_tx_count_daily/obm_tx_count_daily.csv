@@ -6533,3 +6533,4 @@ date,series_id,value,unit,frequency,release_version
 2026-11-19,obm_tx_count_daily,639773,transactions,daily,OBM v0.1.0
 2026-11-20,obm_tx_count_daily,551067,transactions,daily,OBM v0.1.0
 2026-11-21,obm_tx_count_daily,638018,transactions,daily,OBM v0.1.0
+2026-11-22,obm_tx_count_daily,716530,transactions,daily,OBM v0.1.0
